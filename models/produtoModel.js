@@ -36,4 +36,12 @@ const produtoModel = {
     }
 };
 
+criarCategoria: async (nome, descricao) => {
+    const [result] = await db.query(
+        'INSERT INTO categoria (nome, descricao) VALUES (?, ?)',
+        [nome, descricao]
+    );
+    return result.insertId;
+}
+
 module.exports = produtoModel;

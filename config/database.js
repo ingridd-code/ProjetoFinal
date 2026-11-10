@@ -1,11 +1,14 @@
-import mysql from 'mysql2/promise';
+const mysql = require('mysql2/promise');
+require('dotenv').config();
 
-const conexao = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    port: '3306',
-    password: 'senai',
-    database: 'recyclewear_db',
+const pool = mysql.createPool({
+    host: process.env.DB_HOST || 'localhost',
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASS || '',
+    database: process.env.DB_NAME || 'recyclewear_db',
+    port: process.env.DB_PORT || 3306,
+    waitForConnections: true,
+    connectionLimit: 10
 });
 
-export default conexao;
+module.exports = pool;

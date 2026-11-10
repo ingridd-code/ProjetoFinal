@@ -1,0 +1,25 @@
+info:
+  name: Cadastrar_Produto
+  type: http
+
+http:
+  method: POST
+  url: http://localhost:3000/api/produtos/categorias
+  body:
+    type: json
+    data: |-
+      {
+        "id_categoria": 1,
+        "nome": "Camiseta Oceano Azul",
+        "descricao": "Camiseta unissex feita com garrafas PET resgatadas",
+        "preco": 129.90,
+        "estoque": 10,
+        "material": "100% Plástico PET Oceânico"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
