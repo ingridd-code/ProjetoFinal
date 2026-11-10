@@ -1,17 +1,18 @@
 info:
   name: Cadastro_usuario
   type: http
+  seq: 1
 
 http:
   method: POST
-  url: http://localhost:3000/api/auth/register
+  url: http://localhost:3000/api/compras/checkout
   body:
     type: json
     data: |-
       {
-        "nome": "Maria Silva",
-        "email": "maria@email.com",
-        "senha": "senha123"
+        "nome": "João Silva",
+        "email": "joao@email.com",
+        "senha": "senha321"
       }
   auth: inherit
 
