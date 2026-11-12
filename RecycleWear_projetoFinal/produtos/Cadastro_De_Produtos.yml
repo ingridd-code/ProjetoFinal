@@ -1,0 +1,25 @@
+info:
+  name: Cadastro_De_Produtos
+  type: http
+
+http:
+  method: POST
+  url: http://localhost:3000/api/produtos
+  body:
+    type: json
+    data: |-
+      {
+        "id_categoria": 1,
+        "nome": "Moletom Maré Verde",
+        "descricao": "Moletom unissex feito com algodão reciclado e fibras de garrafa PET",
+        "preco": 219.90,
+        "estoque": 12,
+        "material": "70% Algodão Reciclado, 30% Poliéster PET"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

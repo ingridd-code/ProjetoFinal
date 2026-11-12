@@ -1,0 +1,27 @@
+info:
+  name: Atualizar_Produto
+  type: http
+  seq: 1
+
+http:
+  method: PUT
+  url: http://localhost:3000/api/produtos/3
+  body:
+    type: json
+    data: |-
+      {
+        "id_categoria": 1,
+        "nome": "Camiseta Oceano Verde (Edição Limitada)",
+        "descricao": "Camiseta unissex feita com garrafas PET resgatadas",
+        "preco": 139.90,
+        "estoque": 10,
+        "material": "100% Plástico PET Oceânico",
+        "ativo": true
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
