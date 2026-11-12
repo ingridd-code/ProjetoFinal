@@ -1,16 +1,18 @@
 info:
-  name: Login
+  name: Atualizar_Item_Carrinho
   type: http
+  seq: 3
 
 http:
   method: POST
-  url: http://localhost:3000/api/auth/login
+  url: http://localhost:3000/api/carrinho/item
   body:
     type: json
     data: |-
       {
-        "email": "maria@email.com",
-        "senha": "senha123"
+        "id_usuario": 1,
+        "id_produto": 3,
+        "quantidade": 2
       }
   auth: inherit
 

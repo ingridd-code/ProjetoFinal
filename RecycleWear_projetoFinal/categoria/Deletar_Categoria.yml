@@ -1,0 +1,14 @@
+info:
+  name: Deletar_Categoria
+  type: http
+
+http:
+  method: DELETE
+  url: http://localhost:3000/api/produtos/categorias/
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,20 +1,22 @@
 info:
-  name: Cadastrar_Produto
+  name: Atualizar_Produto
   type: http
+  seq: 1
 
 http:
-  method: POST
-  url: http://localhost:3000/api/produtos/categorias
+  method: PUT
+  url: http://localhost:3000/api/produtos/3
   body:
     type: json
     data: |-
       {
         "id_categoria": 1,
-        "nome": "Camiseta Oceano Azul",
+        "nome": "Camiseta Oceano Verde (Edição Limitada)",
         "descricao": "Camiseta unissex feita com garrafas PET resgatadas",
-        "preco": 129.90,
+        "preco": 139.90,
         "estoque": 10,
-        "material": "100% Plástico PET Oceânico"
+        "material": "100% Plástico PET Oceânico",
+        "ativo": true
       }
   auth: inherit
 

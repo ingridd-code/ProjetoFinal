@@ -33,15 +33,26 @@ const produtoModel = {
             [id_categoria, nome, descricao, preco, estoque, material || 'Plástico reciclado retirado do oceano']
         );
         return result.insertId;
+    },
+
+    atualizar: async (id, dados) => {
+        const { id_categoria, nome, descricao, preco, estoque, material, ativo } = dados;
+        await db.query(
+            `UPDATE produto 
+             SET id_categoria = ?, nome = ?, descricao = ?, preco = ?, estoque = ?, material = ?, ativo = ? 
+             WHERE id_produto = ?`,
+            [id_categoria, nome, descricao, preco, estoque, material, ativo !== undefined ? ativo : true, id]
+        );
+        return { id_produto: Number(id), ...dados };
+    },
+
+    deletar: async (id) => {
+        const [result] = await db.query(
+            'DELETE FROM produto WHERE id_produto = ?',
+            [id]
+        );
+        return result.affectedRows;
     }
 };
-
-criarCategoria: async (nome, descricao) => {
-    const [result] = await db.query(
-        'INSERT INTO categoria (nome, descricao) VALUES (?, ?)',
-        [nome, descricao]
-    );
-    return result.insertId;
-}
 
 module.exports = produtoModel;
