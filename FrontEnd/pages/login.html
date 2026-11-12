@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ed">
+  <title>Entrar — RecycleWear</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <script src="../assets/js/api.js" defer></script>
+  <script src="../assets/js/auth.js" defer></script>
+</head>
+<body class="auth-page">
+  <header class="site-header">
+    <a class="brand" href="../index.html"><span class="brand-mark">r<span>w</span></span><span>recyclewear</span></a>
+    <a class="back-link" href="../index.html">← Voltar à loja</a>
+  </header>
+  <main class="auth-layout">
+    <div class="auth-visual login-visual"><span>Vista o futuro<br>que você quer ver.</span><small>Uma peça de cada vez.</small></div>
+    <section class="auth-card">
+      <p class="eyebrow">Que bom ter você de volta</p>
+      <h1>Entre na sua conta<span>.</span></h1>
+      <p class="auth-intro">Continue sua jornada por uma moda mais consciente.</p>
+      <form data-auth-form="login">
+        <label for="email">E-mail</label>
+        <input id="email" name="email" type="email" autocomplete="email" placeholder="voce@email.com" required>
+        <label for="senha">Senha</label>
+        <input id="senha" name="senha" type="password" autocomplete="current-password" placeholder="Sua senha" required>
+        <p class="form-message" data-form-message role="alert"></p>
+        <button class="button button-dark button-full" type="submit">Entrar <span aria-hidden="true">↗</span></button>
+      </form>
+      <p class="auth-switch">Ainda não tem uma conta? <a href="cadastro.html">Cadastre-se</a></p>
+      <p class="auth-note">Sua sessão fica salva apenas neste dispositivo.</p>
+    </section>
+  </main>
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
+</body>
+</html>

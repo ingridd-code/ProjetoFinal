@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ed">
+  <title>Criar conta — RecycleWear</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <script src="../assets/js/api.js" defer></script>
+  <script src="../assets/js/auth.js" defer></script>
+</head>
+<body class="auth-page">
+  <header class="site-header">
+    <a class="brand" href="../index.html"><span class="brand-mark">r<span>w</span></span><span>recyclewear</span></a>
+    <a class="back-link" href="../index.html">← Voltar à loja</a>
+  </header>
+  <main class="auth-layout">
+    <div class="auth-visual signup-visual"><span>Pequenas escolhas.<br>Ondas de mudança.</span><small>O próximo capítulo começa aqui.</small></div>
+    <section class="auth-card">
+      <p class="eyebrow">Faça parte do movimento</p>
+      <h1>Crie sua conta<span>.</span></h1>
+      <p class="auth-intro">Cadastre-se para acompanhar suas escolhas conscientes.</p>
+      <form data-auth-form="register">
+        <label for="nome">Nome</label>
+        <input id="nome" name="nome" type="text" autocomplete="name" placeholder="Como podemos te chamar?" required minlength="2">
+        <label for="email">E-mail</label>
+        <input id="email" name="email" type="email" autocomplete="email" placeholder="voce@email.com" required>
+        <label for="senha">Senha</label>
+        <input id="senha" name="senha" type="password" autocomplete="new-password" placeholder="Mínimo de 6 caracteres" required minlength="6">
+        <p class="form-message" data-form-message role="alert"></p>
+        <button class="button button-dark button-full" type="submit">Criar minha conta <span aria-hidden="true">↗</span></button>
+      </form>
+      <p class="auth-switch">Já faz parte? <a href="login.html">Entre na sua conta</a></p>
+      <p class="auth-note">Seus dados são enviados diretamente para a noPI da loja.</p>
+    </section>
+  </main>
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
+</body>
+</html>

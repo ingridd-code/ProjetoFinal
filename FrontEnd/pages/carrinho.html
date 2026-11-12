@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ed">
+  <title>Sua sacola — RecycleWear</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <script src="../assets/js/api.js" defer></script>
+  <script src="../assets/js/cart.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><span class="brand-mark">r<span>w</span></span><span>recyclewear</span></a>
+    <nav class="main-nav" aria-label="Navegação principal"><a href="../index.html#colecao">Continuar comprando</a></nav>
+    <div class="header-actions"><a class="account-link" data-account-link href="login.html">Entrar</a><a class="cart-link" href="carrinho.html">Sacola <span class="cart-count" data-cart-count>0</span></a></div>
+  </header>
+  <main class="cart-page section-wrap">
+    <p class="eyebrow">Escolhas com propósito</p>
+    <h1>Sua sacola<span>.</span></h1>
+    <p class="cart-subtitle">Cada peça é um passo para um oceano mais limpo.</p>
+    <div class="cart-layout">
+      <section class="cart-items" data-cart-items aria-live="polite"><p class="loading-message">Carregando sua sacola...</p></section>
+      <aside class="cart-summary">
+        <h2>Resumo do pedido</h2>
+        <div class="summary-row"><span>Subtotal</span><strong data-cart-total>R$ 0,00</strong></div>
+        <div class="summary-row"><span>Entrega</span><span>A calcular</span></div>
+        <p class="summary-note">Frete e pagamento serão combinados na próxima etapa.</p>
+        <button class="button button-dark button-full" data-checkout type="button">Finalizar compra <span aria-hidden="true">↗</span></button>
+        <p class="checkout-message" data-checkout-message role="status"></p>
+        <a class="text-link summary-link" href="../index.html#colecao">Continuar explorando</a>
+      </aside>
+    </div>
+  </main>
+  <footer class="site-footer"><a class="brand brand-light" href="../index.html"><span class="brand-mark">r<span>w</span></span><span>recyclewear</span></a><p>Moda feita exclusivamente de plástico retirado do oceano.</p><span>© 2026 RecycleWear</span></footer>
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
+</body>
+</html>

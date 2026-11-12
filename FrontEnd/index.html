@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ed">
+  <title>RecycleWear — Vista o futuro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="assets/js/api.js" defer></script>
+  <script src="assets/js/catalog.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="RecycleWear, início"><span class="brand-mark">r<span>w</span></span><span>recyclewear</span></a>
+    <nav class="main-nav" aria-label="Navegação principal">
+      <a class="active" href="index.html">Início</a>
+      <a href="#colecao">Coleção</a>
+      <a href="#impacto">Nosso impacto</a>
+    </nav>
+    <div class="header-actions">
+      <a class="account-link" data-account-link href="pages/login.html">Entrar</a>
+      <a class="cart-link" href="pages/carrinho.html" aria-label="Abrir carrinho">Sacola <span class="cart-count" data-cart-count>0</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-dot"></span> Moda com um novo propósito</p>
+        <h1>O oceano merece<br>um <em>novo começo.</em></h1>
+        <p class="hero-description">Peças feitas exclusivamente com plástico retirado do oceano. Design consciente para vestir o futuro que queremos ver.</p>
+        <a class="button button-dark" href="#colecao">Descubra a coleção <span aria-hidden="true">↗</span></a>
+        <div class="hero-proof"><span class="proof-icon">✳</span><span>Materiais recuperados.<br><strong>Impacto que fica.</strong></span></div>
+      </div>
+      <div class="hero-image" role="img" aria-label="Pessoa usando roupas sustentáveis em um cenário costeiro">
+        <span class="image-note"><span>01 / 03</span> Feito para ir mais longe</span>
+        <span class="hero-sticker">menos<br>plástico,<br><em>mais vida</em></span>
+      </div>
+      <div class="hero-bottom"><span>01 — 03</span><span>Feito para o movimento do planeta</span><span>↓</span></div>
+    </section>
+
+    <section class="ticker" aria-label="Nossa missão">
+      <span>DO OCEANO PARA O SEU DIA A DIA</span><b>✳</b><span>MODA QUE REGENERA</span><b>✳</b><span>VISTA O FUTURO</span><b>✳</b><span>DO OCEANO PARA O SEU DIA A DIA</span>
+    </section>
+
+    <section class="collection section-wrap" id="colecao">
+      <div class="section-heading">
+        <div><p class="eyebrow">Escolhas que fazem diferença</p><h2>Vista a mudança<span>.</span></h2></div>
+        <p>Design atemporal, materiais extraordinários. Cada peça ajuda a dar um novo destino ao plástico que não deveria estar no mar.</p>
+      </div>
+      <div class="catalog-toolbar">
+        <span data-product-count>Carregando coleção...</span>
+        <label class="sr-only" for="category-filter">Filtrar por categoria</label>
+        <select id="category-filter"><option value="">Todas as peças</option></select>
+      </div>
+      <div class="product-grid" data-product-grid aria-live="polite">
+        <p class="loading-message">Buscando peças feitas para durar...</p>
+      </div>
+    </section>
+
+    <section class="impact" id="impacto">
+      <div class="impact-image" role="img" aria-label="Oceano azul com ondas suaves"></div>
+      <div class="impact-copy">
+        <p class="eyebrow">A mudança começa na origem</p>
+        <h2>Do que polui<br>ao que <em>transforma.</em></h2>
+        <p>O plástico retirado do oceano ganha uma nova vida em cada fibra. Criamos roupas com propósito, sem abrir mão do conforto, da qualidade ou do estilo.</p>
+        <a class="text-link" href="#colecao">Encontre sua próxima peça <span aria-hidden="true">↗</span></a>
+        <div class="impact-stat"><strong>100%</strong><span>plástico retirado do oceano<br>em cada peça</span></div>
+      </div>
+    </section>
+
+    <section class="manifesto section-wrap">
+      <p class="eyebrow">Recicle. Recrie. Repita.</p>
+      <h2>O futuro não é descartável<span>.</span></h2>
+      <a class="button button-outline" href="#colecao">Vista essa ideia <span aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="brand brand-light" href="index.html"><span class="brand-mark">r<span>w</span></span><span>recyclewear</span></a>
+    <p>Moda feita exclusivamente de plástico retirado do oceano.</p>
+    <span>© 2026 RecycleWear</span>
+  </footer>
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
+</body>
+</html>
