@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="../assets/css/styles.css">
   <script src="../assets/js/api.js" defer></script>
   <script src="../assets/js/auth.js" defer></script>
+  <script src="../assets/js/login-carousel.js" defer></script>
 </head>
 <body class="auth-page">
   <header class="site-header">
@@ -18,7 +19,41 @@
     <a class="back-link" href="../index.html">← Voltar à loja</a>
   </header>
   <main class="auth-layout">
-    <div class="auth-visual login-visual"><span>Vista o futuro<br>que você quer ver.</span><small>Uma peça de cada vez.</small></div>
+    <section class="auth-visual login-visual" aria-label="Destaques da RecycleWear">
+      <div class="login-carousel" data-login-carousel aria-roledescription="carrossel" aria-live="off">
+        <article class="login-carousel-slide is-active" data-carousel-slide aria-hidden="false" role="group" aria-roledescription="slide" aria-label="1 de 3">
+          <div class="login-carousel-copy">
+            <p class="login-carousel-kicker">RecycleWear · Moda com propósito</p>
+            <h2>Vista o futuro<br>que você quer ver.</h2>
+            <p>Uma peça de cada vez.</p>
+          </div>
+        </article>
+        <article class="login-carousel-slide" data-carousel-slide aria-hidden="true" role="group" aria-roledescription="slide" aria-label="2 de 3">
+          <div class="login-carousel-copy">
+            <p class="login-carousel-kicker">Uma nova vida para o oceano</p>
+            <h2>Do oceano<br>para um novo começo.</h2>
+            <p>Plástico reciclado transformado em peças feitas para acompanhar você.</p>
+          </div>
+        </article>
+        <article class="login-carousel-slide" data-carousel-slide aria-hidden="true" role="group" aria-roledescription="slide" aria-label="3 de 3">
+          <div class="login-carousel-copy">
+            <p class="login-carousel-kicker">Escolhas que ficam</p>
+            <h2>Estilo que respeita<br>novos caminhos.</h2>
+            <p>Design atemporal para acompanhar seu caminho.</p>
+          </div>
+        </article>
+      </div>
+      <div class="login-carousel-controls" role="group" aria-label="Controles do carrossel">
+        <button type="button" class="carousel-arrow" data-carousel-prev aria-label="Slide anterior">‹</button>
+        <div class="carousel-dots" aria-label="Escolher slide">
+          <button type="button" data-carousel-go="0" aria-label="Mostrar slide 1" aria-current="true"></button>
+          <button type="button" data-carousel-go="1" aria-label="Mostrar slide 2"></button>
+          <button type="button" data-carousel-go="2" aria-label="Mostrar slide 3"></button>
+        </div>
+        <button type="button" class="carousel-arrow" data-carousel-next aria-label="Próximo slide">›</button>
+        <button type="button" class="carousel-toggle" data-carousel-toggle aria-label="Pausar carrossel">Ⅱ</button>
+      </div>
+    </section>
     <section class="auth-card">
       <p class="eyebrow">Que bom ter você de volta</p>
       <h1>Entre na sua conta<span>.</span></h1>

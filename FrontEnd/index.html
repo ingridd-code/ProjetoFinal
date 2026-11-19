@@ -3,124 +3,113 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f6f3ed">
-  <meta name="description" content="Essenciais atemporais feitos com materiais reaproveitados. Conheça a coleção RecycleWear.">
-  <title>RecycleWear — Essenciais para todos os dias</title>
+  <meta name="theme-color" content="#f5f6f2">
+  <meta name="description" content="RecycleWear: moda feita exclusivamente com plástico reciclado retirado do oceano.">
+  <title>RecycleWear — Vista um futuro melhor</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
   <script src="assets/js/api.js" defer></script>
   <script src="assets/js/catalog.js" defer></script>
 </head>
-<body class="editorial-home">
-  <div class="announcement-bar">Frete grátis em compras acima de R$ 299 <span aria-hidden="true">✦</span> Feito para durar</div>
-  <header class="site-header editorial-header">
-    <a class="brand editorial-brand" href="index.html" aria-label="RecycleWear, início">
-      <span class="brand-mark" aria-hidden="true">rw</span>
+<body class="eco-storefront">
+  <div class="eco-announcement">Moda feita com plástico reciclado retirado do oceano <span aria-hidden="true">✦</span> Conheça a RecycleWear</div>
+  <header class="eco-header">
+    <a class="eco-logo" href="index.html" aria-label="RecycleWear, início">
+      <span class="eco-logo-mark" aria-hidden="true">rw</span>
       <span>recyclewear</span>
     </a>
-    <nav class="main-nav" aria-label="Navegação principal">
+    <nav class="eco-nav" aria-label="Navegação principal">
       <a href="#colecao">Novidades</a>
-      <a href="#categorias">Feminino</a>
-      <a href="#categorias">Masculino</a>
-      <a href="#intencao">Nossa intenção</a>
+      <a href="#categorias">Roupas</a>
+      <a href="#impacto">Nosso impacto</a>
     </nav>
-    <div class="header-actions">
-      <a class="account-link" data-account-link href="pages/login.html">Entrar</a>
-      <a class="cart-link" href="pages/carrinho.html" aria-label="Abrir sacola">Sacola <span class="cart-count" data-cart-count>0</span></a>
+    <div class="eco-actions">
+      <a data-account-link href="pages/login.html">Entrar</a>
+      <a href="pages/carrinho.html" aria-label="Abrir sacola">Sacola <span class="eco-cart-count" data-cart-count>0</span></a>
     </div>
   </header>
 
   <main>
-    <section class="editorial-hero" aria-labelledby="hero-title">
-      <div class="editorial-hero-photo" role="img" aria-label="Modelos usando peças neutras em uma paisagem natural"></div>
-      <div class="editorial-hero-copy">
-        <p class="editorial-kicker">RecycleWear apresenta · Coleção 2026</p>
-        <h1 id="hero-title">A arte de<br>vestir bem.</h1>
-        <p>Essenciais contemporâneos, criados com intenção e pensados para acompanhar você por muito tempo.</p>
-        <a class="editorial-button" href="#colecao">Conheça a coleção <span aria-hidden="true">↗</span></a>
+    <section class="eco-hero" aria-labelledby="eco-hero-title">
+      <div class="eco-hero-photo" role="img" aria-label="Moda contemporânea em uma paisagem natural"></div>
+      <div class="eco-hero-shade"></div>
+      <div class="eco-hero-copy">
+        <p class="eco-overline">RECYCLEWEAR · MODA COM PROPÓSITO</p>
+        <h1 id="eco-hero-title">Vista um futuro<br>mais <em>azul.</em></h1>
+        <p>Peças feitas exclusivamente com plástico reciclado retirado do oceano. Um novo começo para materiais que merecem outra história.</p>
+        <a class="eco-button eco-button-light" href="#colecao">Descubra a coleção <span aria-hidden="true">↗</span></a>
       </div>
-      <div class="editorial-hero-caption"><span>01 — 03</span><span>Uma nova forma de escolher.</span></div>
+      <span class="eco-hero-caption">DESIGN CONSCIENTE · FEITO PARA DURAR</span>
     </section>
 
-    <section class="editorial-categories section-wrap" id="categorias" aria-label="Explore por categoria">
-      <a class="category-card category-women" href="#colecao">
-        <span class="category-shade"></span>
-        <span class="category-card-copy"><span>Para ela</span><strong>Feminino</strong><span>Descubra <b aria-hidden="true">↗</b></span></span>
-      </a>
-      <a class="category-card category-men" href="#colecao">
-        <span class="category-shade"></span>
-        <span class="category-card-copy"><span>Para ele</span><strong>Masculino</strong><span>Descubra <b aria-hidden="true">↗</b></span></span>
-      </a>
-      <a class="category-card category-essentials" href="#colecao">
-        <span class="category-shade"></span>
-        <span class="category-card-copy"><span>Feitos para ficar</span><strong>Essenciais</strong><span>Descubra <b aria-hidden="true">↗</b></span></span>
-      </a>
+    <section class="eco-values" aria-label="Compromisso RecycleWear" data-scroll-reveal>
+      <div><span class="eco-value-icon" aria-hidden="true">01</span><p><strong>Origem consciente</strong><span>Plástico retirado do oceano</span></p></div>
+      <div><span class="eco-value-icon" aria-hidden="true">02</span><p><strong>Nova matéria-prima</strong><span>Reciclada para virar tecido</span></p></div>
+      <div><span class="eco-value-icon" aria-hidden="true">03</span><p><strong>Estilo duradouro</strong><span>Essenciais para muitos caminhos</span></p></div>
     </section>
 
-    <section class="collection editorial-collection section-wrap" id="colecao">
-      <div class="editorial-section-heading">
-        <div>
-          <p class="editorial-kicker">Uma seleção para viver bem</p>
-          <h2>Básicos elevados.<br><em>Ícones modernos.</em></h2>
-        </div>
-        <a class="editorial-text-link" href="pages/produtos.html">Explore a coleção <span aria-hidden="true">↗</span></a>
+    <section class="eco-categories" id="categorias" aria-labelledby="categories-title">
+      <div class="eco-section-title" data-scroll-reveal>
+        <div><p class="eco-overline">Encontre o seu essencial</p><h2 id="categories-title">Vista do seu jeito.</h2></div>
+        <a class="eco-inline-link" href="#colecao">Ver coleção <span aria-hidden="true">↗</span></a>
       </div>
-      <div class="catalog-toolbar">
+      <div class="eco-category-grid">
+        <a class="eco-category eco-category-women" href="#colecao" data-scroll-reveal><span>Feminino</span><b aria-hidden="true">↗</b></a>
+        <a class="eco-category eco-category-men" href="#colecao" data-scroll-reveal><span>Masculino</span><b aria-hidden="true">↗</b></a>
+        <a class="eco-category eco-category-everyday" href="#colecao" data-scroll-reveal><span>Para todos os dias</span><b aria-hidden="true">↗</b></a>
+      </div>
+    </section>
+
+    <section class="eco-collection" id="colecao" aria-labelledby="collection-title">
+      <div class="eco-section-title" data-scroll-reveal>
+        <div><p class="eco-overline">Plástico do oceano, transformado</p><h2 id="collection-title">A coleção RecycleWear.</h2></div>
+        <p class="eco-section-description">Cada peça começa com uma escolha: dar uma nova vida ao plástico retirado do oceano.</p>
+      </div>
+      <div class="catalog-toolbar eco-catalog-toolbar" data-scroll-reveal>
         <span data-product-count>Carregando coleção...</span>
         <label class="sr-only" for="category-filter">Filtrar por categoria</label>
         <select id="category-filter"><option value="">Todas as peças</option></select>
       </div>
-      <div class="product-grid editorial-product-grid" data-product-grid aria-live="polite">
+      <div class="product-grid eco-product-grid" data-product-grid aria-live="polite" data-scroll-reveal>
         <p class="loading-message">Buscando peças feitas para durar...</p>
       </div>
     </section>
 
-    <section class="editorial-intention" id="intencao">
-      <div class="intention-photo" role="img" aria-label="Detalhe de uma peça de roupa de tom neutro"></div>
-      <div class="intention-copy">
-        <p class="editorial-kicker">Menos, com mais significado</p>
-        <h2>Feito com<br><em>intenção.</em></h2>
-        <p>Acreditamos em escolhas cuidadosas e peças que atravessam estações. Por isso, cada detalhe une design atemporal, conforto e materiais reaproveitados.</p>
-        <a class="editorial-button editorial-button-outline" href="#colecao">Nossa maneira de fazer <span aria-hidden="true">↗</span></a>
-      </div>
-    </section>
-
-    <section class="editorial-promo">
-      <div class="editorial-promo-copy">
-        <p class="editorial-kicker">Uma nova perspectiva</p>
-        <h2>O luxo de escolher<br>com consciência.</h2>
-        <a class="editorial-button editorial-button-light" href="#colecao">Encontre seus essenciais <span aria-hidden="true">↗</span></a>
+    <section class="eco-impact" id="impacto" aria-labelledby="impact-title">
+      <div class="eco-impact-photo" role="img" aria-label="Ondas do oceano" data-scroll-reveal></div>
+      <div class="eco-impact-copy" data-scroll-reveal>
+        <p class="eco-overline">A origem faz a diferença</p>
+        <h2 id="impact-title">Do oceano<br>para uma nova <em>vida.</em></h2>
+        <p>A RecycleWear transforma exclusivamente plástico reciclado retirado do oceano em roupas. Escolhemos materiais com propósito e criamos peças para acompanhar você por muito tempo.</p>
+        <a class="eco-inline-link" href="#colecao">Conheça as peças <span aria-hidden="true">↗</span></a>
       </div>
     </section>
   </main>
 
-  <footer class="editorial-footer">
-    <div class="footer-main">
-      <div class="footer-brand-block">
-        <a class="brand editorial-brand" href="index.html"><span class="brand-mark" aria-hidden="true">rw</span><span>recyclewear</span></a>
-        <p>Peças para vestir hoje<br>e guardar por muito tempo.</p>
+  <footer class="eco-footer">
+    <div class="eco-footer-main">
+      <div class="eco-footer-brand">
+        <a class="eco-logo" href="index.html"><span class="eco-logo-mark" aria-hidden="true">rw</span><span>recyclewear</span></a>
+        <p>Moda feita exclusivamente com plástico reciclado retirado do oceano.</p>
       </div>
-      <div class="footer-links">
+      <div class="eco-footer-links">
         <strong>Explore</strong>
         <a href="#colecao">Novidades</a>
         <a href="#categorias">Essenciais</a>
         <a href="pages/produtos.html">Gerenciar produtos</a>
       </div>
-      <div class="footer-links">
-        <strong>Atendimento</strong>
-        <a href="pages/login.html">Minha conta</a>
-        <a href="pages/carrinho.html">Minha sacola</a>
-        <a href="#intencao">Nossa intenção</a>
-      </div>
-      <div class="footer-note">
-        <strong>Vista com intenção.</strong>
-        <p>Design consciente, feito para fazer parte da sua história.</p>
+      <div class="eco-footer-links">
+        <strong>Conta</strong>
+        <a href="pages/login.html">Entrar</a>
+        <a href="pages/cadastro.html">Criar conta</a>
+        <a href="pages/carrinho.html">Sacola</a>
       </div>
     </div>
-    <div class="footer-bottom"><span>© 2026 RecycleWear</span><span>Feito com cuidado, para durar.</span></div>
+    <div class="eco-footer-bottom"><span>© 2026 RecycleWear</span><span>Uma nova vida para o plástico do oceano.</span></div>
   </footer>
   <div class="toast" data-toast role="status" aria-live="polite"></div>
+  <script src="assets/js/scroll-parallax.js" defer></script>
 </body>
 </html>
