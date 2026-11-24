@@ -1,0 +1,20 @@
+info:
+  name: Finalizar_Compra_Carrinho
+  type: http
+
+http:
+  method: POST
+  url: http://localhost:3000/api/compras/checkout
+  body:
+    type: json
+    data: |-
+      {
+        "id_usuario": 1
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,17 @@
+info:
+  name: Atualizar_Categoria
+  type: http
+
+http:
+  method: PUT
+  url: http://localhost:3000/api/produtos/categorias/1
+  body:
+    type: json
+    data: '{"nome": "Camisetas Ecológicas", "descricao": "Feitas com garrafas PET"}'
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

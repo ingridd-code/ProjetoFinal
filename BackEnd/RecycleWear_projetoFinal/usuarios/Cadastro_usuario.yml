@@ -1,0 +1,23 @@
+info:
+  name: Cadastro_usuario
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:3000/api/compras/checkout
+  body:
+    type: json
+    data: |-
+      {
+        "nome": "João Silva",
+        "email": "joao@email.com",
+        "senha": "senha321"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

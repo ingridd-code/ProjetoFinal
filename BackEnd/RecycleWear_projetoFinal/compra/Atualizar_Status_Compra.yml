@@ -1,0 +1,20 @@
+info:
+  name: Atualizar_Status_Compra
+  type: http
+
+http:
+  method: PATCH
+  url: http://localhost:3000/api/compras/1/status
+  body:
+    type: json
+    data: |-
+      {
+        "status": "enviada"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

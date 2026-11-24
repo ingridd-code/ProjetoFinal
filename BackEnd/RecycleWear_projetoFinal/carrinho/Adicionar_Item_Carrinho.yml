@@ -1,0 +1,23 @@
+info:
+  name: Adicionar_Item_Carrinho
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:3000/api/carrinho/item
+  body:
+    type: json
+    data: |-
+      {
+        "id_usuario": 1,
+        "id_produto": 3,
+        "quantidade": 2
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
