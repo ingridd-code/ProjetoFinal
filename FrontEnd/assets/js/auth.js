@@ -28,9 +28,10 @@
       });
       await window.RecycleWear.syncGuestCart(result.usuario);
       localStorage.setItem('recyclewear_user', JSON.stringify(result.usuario));
-      window.location.href = new URLSearchParams(window.location.search).get('redirect') === 'carrinho'
+      const redirect = new URLSearchParams(window.location.search).get('redirect');
+      window.location.href = redirect === 'carrinho'
         ? 'carrinho.html'
-        : '../index.html';
+        : redirect === 'historico' ? 'historico.html' : '../index.html';
     } catch (error) {
       message.textContent = error.message;
     } finally {

@@ -29,10 +29,12 @@
 
   async function request(path, options) {
     let response;
+    const headers = { ...(options && options.headers) };
+    if (!(options && options.body instanceof FormData)) headers['Content-Type'] = 'application/json';
     try {
       response = await fetch(`${API_BASE}${path}`, {
         ...options,
-        headers: { 'Content-Type': 'application/json', ...(options && options.headers) }
+        headers
       });
     } catch (error) {
       throw new Error('Não foi possível conectar à API. Verifique se o BackEnd está rodando na porta 3000.');

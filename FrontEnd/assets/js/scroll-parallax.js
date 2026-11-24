@@ -1,10 +1,13 @@
 (function () {
   const hero = document.querySelector('.eco-hero');
-  if (!hero || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!hero) return;
 
+  const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let reduceMotion = motionPreference.matches;
   const heroPhoto = hero.querySelector('.eco-hero-photo');
-  const heroCopy = hero.querySelector('.eco-hero-copy');
+  const heroBackgroundSpeed = 0.3;
   const categoryCards = [...document.querySelectorAll('.eco-category')];
+  const productGrid = document.querySelector('.eco-product-grid');
   const impactPhoto = document.querySelector('.eco-impact-photo');
   let animationFrame = null;
 
@@ -15,16 +18,27 @@
 
   function updateParallax() {
     animationFrame = null;
-    const heroProgress = getProgress(hero);
-    const heroOffset = Math.max(-45, Math.min(45, (heroProgress - 0.5) * 90));
-    const copyOffset = Math.max(-12, Math.min(12, (heroProgress - 0.5) * 24));
+    if (reduceMotion) return;
+
+    const heroOffset = window.scrollY * (1 - heroBackgroundSpeed);
     heroPhoto.style.setProperty('--eco-hero-parallax-y', `${heroOffset}px`);
-    heroCopy.style.setProperty('--eco-copy-parallax-y', `${copyOffset}px`);
 
     categoryCards.forEach((card) => {
       const offset = (getProgress(card) - 0.5) * 36;
       card.style.setProperty('--eco-category-parallax-y', `${offset}px`);
     });
+
+    if (productGrid) {
+      const gridBounds = productGrid.getBoundingClientRect();
+      const gridCenter = gridBounds.left + gridBounds.width / 2;
+      productGrid.querySelectorAll('.product-image > img').forEach((image) => {
+        const bounds = image.parentElement.getBoundingClientRect();
+        const verticalOffset = (getProgress(image.parentElement) - 0.5) * 34;
+        const horizontalOffset = Math.max(-20, Math.min(20, (gridCenter - (bounds.left + bounds.width / 2)) * 0.07));
+        image.style.setProperty('--eco-product-parallax-x', `${horizontalOffset}px`);
+        image.style.setProperty('--eco-product-parallax-y', `${verticalOffset}px`);
+      });
+    }
 
     if (impactPhoto) {
       const offset = (getProgress(impactPhoto) - 0.5) * 48;
@@ -33,16 +47,29 @@
   }
 
   function scheduleParallax() {
-    if (animationFrame === null) animationFrame = window.requestAnimationFrame(updateParallax);
+    if (!reduceMotion && animationFrame === null) animationFrame = window.requestAnimationFrame(updateParallax);
   }
 
   window.addEventListener('scroll', scheduleParallax, { passive: true });
   window.addEventListener('resize', scheduleParallax);
-  updateParallax();
+  if (productGrid) productGrid.addEventListener('scroll', scheduleParallax, { passive: true });
+  scheduleParallax();
 
+  function handleMotionPreferenceChange(event) {
+    reduceMotion = event.matches;
+    scheduleParallax();
+  }
+
+  if (motionPreference.addEventListener) {
+    motionPreference.addEventListener('change', handleMotionPreferenceChange);
+  } else if (motionPreference.addListener) {
+    motionPreference.addListener(handleMotionPreferenceChange);
+  }
+
+  let revealObserver = null;
   if ('IntersectionObserver' in window) {
     document.body.classList.add('has-scroll-reveal');
-    const revealObserver = new IntersectionObserver((entries, observer) => {
+    revealObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         entry.target.classList.add('is-visible');
@@ -50,5 +77,18 @@
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
     document.querySelectorAll('[data-scroll-reveal]').forEach((element) => revealObserver.observe(element));
+    if (productGrid) {
+      productGrid.querySelectorAll('[data-product-reveal]').forEach((element) => revealObserver.observe(element));
+    }
+  }
+
+  if (productGrid && 'MutationObserver' in window) {
+    const productObserver = new MutationObserver(() => {
+      if (!reduceMotion) scheduleParallax();
+      if (revealObserver) {
+        productGrid.querySelectorAll('[data-product-reveal]:not(.is-visible)').forEach((element) => revealObserver.observe(element));
+      }
+    });
+    productObserver.observe(productGrid, { childList: true, subtree: true });
   }
 })();

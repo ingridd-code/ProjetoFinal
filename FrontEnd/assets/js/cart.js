@@ -1,7 +1,14 @@
 (function () {
   const itemsContainer = document.querySelector('[data-cart-items]');
   if (!itemsContainer) return;
+  const deliveryDateInput = document.querySelector('[data-delivery-date]');
+  const deliveryLocationInput = document.querySelector('[data-delivery-location]');
+  const historyLink = document.querySelector('[data-purchase-history-link]');
   let cartItems = [];
+
+  const today = new Date();
+  today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+  deliveryDateInput.min = today.toISOString().slice(0, 10);
 
   function escapeHtml(value) {
     return String(value || '').replace(/[&<>"']/g, (character) => ({
@@ -81,6 +88,7 @@
     const message = document.querySelector('[data-checkout-message]');
     const user = window.RecycleWear.getUser();
     message.textContent = '';
+    historyLink.hidden = true;
     if (!user) {
       window.location.href = 'login.html?redirect=carrinho';
       return;
@@ -89,13 +97,31 @@
       message.textContent = 'Adicione ao menos uma peça antes de finalizar.';
       return;
     }
+    const dataEntrega = deliveryDateInput.value;
+    const localEntrega = deliveryLocationInput.value.trim();
+    if (!dataEntrega || dataEntrega < deliveryDateInput.min) {
+      message.textContent = 'Escolha uma data de entrega a partir de hoje.';
+      deliveryDateInput.focus();
+      return;
+    }
+    if (!localEntrega || localEntrega.length > 255) {
+      message.textContent = 'Informe um endereço de entrega com até 255 caracteres.';
+      deliveryLocationInput.focus();
+      return;
+    }
     button.disabled = true;
     try {
       const result = await window.RecycleWear.request('/compras/checkout', {
         method: 'POST',
-        body: JSON.stringify({ id_usuario: user.id })
+        body: JSON.stringify({
+          id_usuario: user.id,
+          data_entrega: dataEntrega,
+          local_entrega: localEntrega
+        })
       });
       message.textContent = `${result.mensagem} Pedido #${result.id_compra} · Nota fiscal ${result.nota_fiscal}.`;
+      historyLink.href = `historico.html?compra=${encodeURIComponent(result.id_compra)}`;
+      historyLink.hidden = false;
       await loadCart();
       window.RecycleWear.updateCartCount();
     } catch (error) {

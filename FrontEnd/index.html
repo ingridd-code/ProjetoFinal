@@ -33,7 +33,7 @@
 
   <main>
     <section class="eco-hero" aria-labelledby="eco-hero-title">
-      <div class="eco-hero-photo" role="img" aria-label="Moda contemporânea em uma paisagem natural"></div>
+      <div class="eco-hero-photo" role="img" aria-label="Ilustração de um mar limpo com ondas azuis"></div>
       <div class="eco-hero-shade"></div>
       <div class="eco-hero-copy">
         <p class="eco-overline">RECYCLEWEAR · MODA COM PROPÓSITO</p>
@@ -69,10 +69,16 @@
       </div>
       <div class="catalog-toolbar eco-catalog-toolbar" data-scroll-reveal>
         <span data-product-count>Carregando coleção...</span>
-        <label class="sr-only" for="category-filter">Filtrar por categoria</label>
-        <select id="category-filter"><option value="">Todas as peças</option></select>
+        <div class="eco-collection-tools">
+          <label class="sr-only" for="category-filter">Filtrar por categoria</label>
+          <select id="category-filter"><option value="">Todas as peças</option></select>
+          <div class="eco-carousel-controls" data-collection-controls role="group" aria-label="Navegação da coleção" hidden>
+            <button type="button" data-collection-prev aria-label="Peças anteriores" aria-controls="eco-product-carousel" disabled>‹</button>
+            <button type="button" data-collection-next aria-label="Próximas peças" aria-controls="eco-product-carousel" disabled>›</button>
+          </div>
+        </div>
       </div>
-      <div class="product-grid eco-product-grid" data-product-grid aria-live="polite" data-scroll-reveal>
+      <div id="eco-product-carousel" class="product-grid eco-product-grid" data-product-grid aria-label="Coleção de produtos" tabindex="0" aria-live="polite" data-scroll-reveal>
         <p class="loading-message">Buscando peças feitas para durar...</p>
       </div>
     </section>
@@ -110,6 +116,6 @@
     <div class="eco-footer-bottom"><span>© 2026 RecycleWear</span><span>Uma nova vida para o plástico do oceano.</span></div>
   </footer>
   <div class="toast" data-toast role="status" aria-live="polite"></div>
-  <script src="assets/js/scroll-parallax.js" defer></script>
+  <script src="assets/js/scroll-parallax.js" ></script>
 </body>
 </html>

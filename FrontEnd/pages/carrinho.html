@@ -16,7 +16,7 @@
   <header class="site-header">
     <a class="brand" href="../index.html"><span class="brand-mark">r<span>w</span></span><span>recyclewear</span></a>
     <nav class="main-nav" aria-label="Navegação principal"><a href="../index.html#colecao">Continuar comprando</a></nav>
-    <div class="header-actions"><a class="account-link" data-account-link href="login.html">Entrar</a><a class="cart-link" href="carrinho.html">Sacola <span class="cart-count" data-cart-count>0</span></a></div>
+    <div class="header-actions"><a href="historico.html">Histórico</a><a class="account-link" data-account-link href="login.html">Entrar</a><a class="cart-link" href="carrinho.html">Sacola <span class="cart-count" data-cart-count>0</span></a></div>
   </header>
   <main class="cart-page section-wrap">
     <p class="eyebrow">Escolhas com propósito</p>
@@ -28,9 +28,16 @@
         <h2>Resumo do pedido</h2>
         <div class="summary-row"><span>Subtotal</span><strong data-cart-total>R$ 0,00</strong></div>
         <div class="summary-row"><span>Entrega</span><span>A calcular</span></div>
-        <p class="summary-note">Frete e pagamento serão combinados na próxima etapa.</p>
+        <div class="delivery-fields">
+          <label for="delivery-date">Data desejada para entrega</label>
+          <input id="delivery-date" data-delivery-date type="date" required>
+          <label for="delivery-location">Endereço de entrega</label>
+          <textarea id="delivery-location" data-delivery-location rows="3" maxlength="255" autocomplete="street-address" placeholder="Rua, número, bairro, cidade e CEP" required></textarea>
+        </div>
+        <p class="summary-note">Informe a data desejada e o endereço para receber o pedido.</p>
         <button class="button button-dark button-full" data-checkout type="button">Finalizar compra <span aria-hidden="true">↗</span></button>
         <p class="checkout-message" data-checkout-message role="status"></p>
+        <a class="text-link summary-link" data-purchase-history-link href="historico.html" hidden>Ver histórico e nota fiscal</a>
         <a class="text-link summary-link" href="../index.html#colecao">Continuar explorando</a>
       </aside>
     </div>

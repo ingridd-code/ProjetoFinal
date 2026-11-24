@@ -65,6 +65,17 @@
         <label for="product-description">Descrição</label>
         <textarea id="product-description" name="descricao" rows="3"></textarea>
 
+        <div class="product-image-field">
+          <label for="product-image">Foto do produto</label>
+          <input id="product-image" name="imagem" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="product-image-help product-image-message">
+          <p id="product-image-help" class="category-help">JPG, PNG ou WEBP; até 4 MB.</p>
+          <p class="admin-message" data-image-message id="product-image-message" role="status" aria-live="polite"></p>
+          <div class="product-image-preview">
+            <img data-product-image-preview alt="Prévia da foto do produto" hidden>
+            <span data-product-image-empty>Nenhuma foto selecionada</span>
+          </div>
+        </div>
+
         <label for="product-material">Material</label>
         <input id="product-material" name="material" type="text" maxlength="150" value="Plástico reciclado retirado do oceano" required>
 

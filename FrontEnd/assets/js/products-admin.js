@@ -11,7 +11,12 @@
   const cancelEditButton = document.querySelector('[data-cancel-edit]');
   const categoryForm = document.querySelector('[data-category-form]');
   const categoryMessage = document.querySelector('[data-category-message]');
+  const imageInput = form.elements.imagem;
+  const imagePreview = document.querySelector('[data-product-image-preview]');
+  const imagePreviewEmpty = document.querySelector('[data-product-image-empty]');
+  const imageMessage = document.querySelector('[data-image-message]');
   let editingProductId = null;
+  let previewObjectUrl = null;
   let products = [];
 
   function escapeHtml(value) {
@@ -23,6 +28,40 @@
   function formatPrice(price) {
     return Number(price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   }
+
+  function clearImagePreview() {
+    if (previewObjectUrl) URL.revokeObjectURL(previewObjectUrl);
+    previewObjectUrl = null;
+    imagePreview.removeAttribute('src');
+    imagePreview.hidden = true;
+    imagePreviewEmpty.hidden = false;
+  }
+
+  function setImagePreview(src, isTemporary) {
+    if (previewObjectUrl) URL.revokeObjectURL(previewObjectUrl);
+    previewObjectUrl = isTemporary ? src : null;
+    imagePreview.src = src;
+    imagePreview.hidden = false;
+    imagePreviewEmpty.hidden = true;
+  }
+
+  imageInput.addEventListener('change', () => {
+    imageMessage.textContent = '';
+    clearImagePreview();
+    const file = imageInput.files[0];
+    if (!file) return;
+    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+      imageMessage.textContent = 'Escolha uma imagem JPG, PNG ou WEBP.';
+      imageInput.value = '';
+      return;
+    }
+    if (file.size > 4 * 1024 * 1024) {
+      imageMessage.textContent = 'A imagem deve ter no máximo 4 MB.';
+      imageInput.value = '';
+      return;
+    }
+    setImagePreview(URL.createObjectURL(file), true);
+  });
 
   async function loadCategories(selectedId) {
     const categories = await window.RecycleWear.request('/produtos/categorias');
@@ -48,6 +87,11 @@
     }
     list.innerHTML = products.map((product) => `
       <article class="admin-product">
+        <div class="admin-product-image">
+          ${product.imagem_url
+            ? `<img src="${escapeHtml(product.imagem_url)}" alt="Foto de ${escapeHtml(product.nome)}" loading="lazy">`
+            : '<span aria-label="Sem foto">Sem foto</span>'}
+        </div>
         <div class="admin-product-info">
           <span class="admin-product-category">${escapeHtml(product.categoria || 'Sem categoria')}</span>
           <h3>${escapeHtml(product.nome)}</h3>
@@ -81,6 +125,8 @@
     editingProductId = null;
     form.reset();
     form.elements.material.value = 'Plástico reciclado retirado do oceano';
+    clearImagePreview();
+    imageMessage.textContent = '';
     document.querySelector('[data-form-title]').textContent = 'Novo produto';
     submitButton.innerHTML = 'Adicionar produto <span aria-hidden="true">↗</span>';
     cancelEditButton.hidden = true;
@@ -97,6 +143,10 @@
       return;
     }
     editingProductId = productId;
+    imageInput.value = '';
+    clearImagePreview();
+    imageMessage.textContent = '';
+    if (product.imagem_url) setImagePreview(product.imagem_url, false);
     form.elements.nome.value = product.nome || '';
     form.elements.descricao.value = product.descricao || '';
     form.elements.material.value = product.material || '';
@@ -119,26 +169,24 @@
       formMessage.textContent = 'Selecione ou cadastre uma categoria antes de salvar o produto.';
       return;
     }
-    const values = Object.fromEntries(new FormData(form).entries());
-    const payload = {
-      ...values,
-      id_categoria: Number(values.id_categoria),
-      preco: Number(values.preco),
-      estoque: Number(values.estoque)
-    };
+    const payload = new FormData(form);
+    if (!imageInput.files.length) payload.delete('imagem');
+    payload.set('id_categoria', String(Number(payload.get('id_categoria'))));
+    payload.set('preco', String(Number(payload.get('preco'))));
+    payload.set('estoque', String(Number(payload.get('estoque'))));
     formMessage.textContent = '';
     submitButton.disabled = true;
     try {
       if (editingProductId === null) {
         await window.RecycleWear.request('/produtos', {
           method: 'POST',
-          body: JSON.stringify(payload)
+          body: payload
         });
         formMessage.textContent = 'Produto cadastrado com sucesso.';
       } else {
         await window.RecycleWear.request(`/produtos/${encodeURIComponent(editingProductId)}`, {
           method: 'PUT',
-          body: JSON.stringify(payload)
+          body: payload
         });
         formMessage.textContent = 'Produto atualizado com sucesso.';
       }
@@ -146,6 +194,8 @@
       if (editingProductId === null) {
         form.reset();
         form.elements.material.value = 'Plástico reciclado retirado do oceano';
+        clearImagePreview();
+        imageMessage.textContent = '';
         await loadCategories();
       } else {
         editingProductId = null;
@@ -154,6 +204,8 @@
         cancelEditButton.hidden = true;
         form.reset();
         form.elements.material.value = 'Plástico reciclado retirado do oceano';
+        clearImagePreview();
+        imageMessage.textContent = '';
         await loadCategories();
       }
     } catch (error) {

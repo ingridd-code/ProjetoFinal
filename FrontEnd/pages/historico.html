@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ed">
+  <title>Histórico de compras — RecycleWear</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <script src="../assets/js/api.js" defer></script>
+  <script src="../assets/js/history.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><span class="brand-mark">r<span>w</span></span><span>recyclewear</span></a>
+    <nav class="main-nav" aria-label="Navegação principal">
+      <a href="../index.html#colecao">Continuar comprando</a>
+      <a href="carrinho.html">Sacola</a>
+    </nav>
+    <div class="header-actions">
+      <a class="account-link" data-account-link href="login.html">Entrar</a>
+      <a class="cart-link" href="carrinho.html">Sacola <span class="cart-count" data-cart-count>0</span></a>
+    </div>
+  </header>
+  <main class="history-page section-wrap">
+    <p class="eyebrow">Sua jornada RecycleWear</p>
+    <h1>Histórico de compras<span>.</span></h1>
+    <p class="history-intro">Acompanhe seus pedidos, entregas e notas fiscais.</p>
+    <div class="purchase-history-list" data-purchase-history aria-live="polite">
+      <p class="loading-message">Carregando seu histórico...</p>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <a class="brand brand-light" href="../index.html"><span class="brand-mark">r<span>w</span></span><span>recyclewear</span></a>
+    <p>Moda feita exclusivamente de plástico retirado do oceano.</p>
+    <a class="footer-admin-link" href="../index.html#colecao">Continuar comprando ↗</a>
+    <span>© 2026 RecycleWear</span>
+  </footer>
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
+</body>
+</html>

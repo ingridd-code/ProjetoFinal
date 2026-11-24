@@ -11,29 +11,53 @@
     'photo-1544441893-675973e31985'
   ];
   let products = [];
+  const carouselControls = document.querySelector('[data-collection-controls]');
+  const previousButton = document.querySelector('[data-collection-prev]');
+  const nextButton = document.querySelector('[data-collection-next]');
 
   function formatPrice(price) {
     return Number(price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   }
 
+  function updateCarouselControls() {
+    if (!carouselControls || !previousButton || !nextButton) return;
+    const maxScroll = grid.scrollWidth - grid.clientWidth;
+    carouselControls.hidden = maxScroll <= 1;
+    previousButton.disabled = grid.scrollLeft <= 1;
+    nextButton.disabled = grid.scrollLeft >= maxScroll - 1;
+  }
+
+  function scrollCollection(direction) {
+    const card = grid.querySelector('.product-card');
+    if (!card) return;
+    const gap = Number.parseFloat(window.getComputedStyle(grid).columnGap) || 0;
+    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+    grid.scrollBy({ left: direction * (card.getBoundingClientRect().width + gap), behavior });
+  }
+
   function renderProducts(list) {
     const count = document.querySelector('[data-product-count]');
     count.textContent = `${list.length} ${list.length === 1 ? 'peça' : 'peças'} disponíveis`;
+    grid.scrollLeft = 0;
+    grid.classList.toggle('is-carousel', list.length > 0);
     if (!list.length) {
       grid.innerHTML = '<p class="empty-state">Nenhuma peça encontrada nesta categoria.</p>';
+      updateCarouselControls();
       return;
     }
     grid.innerHTML = list.map((product, index) => {
-      const image = `https://images.unsplash.com/${productImages[index % productImages.length]}?auto=format&fit=crop&w=850&q=85`;
+      const image = product.imagem_url || `https://images.unsplash.com/${productImages[index % productImages.length]}?auto=format&fit=crop&w=850&q=85`;
       const unavailable = Number(product.estoque) <= 0;
-      return `<article class="product-card">
-        <div class="product-image" style="--product-image: url('${image}')">
+      return `<article class="product-card" data-product-reveal style="--product-reveal-delay: ${Math.min(index, 5) * 80}ms">
+        <div class="product-image">
+          <img src="${escapeHtml(image)}" alt="Foto de ${escapeHtml(product.nome)}" loading="lazy">
           <span class="product-tag">${product.categoria || 'RecycleWear'}</span>
           <button class="quick-add" type="button" data-add-product="${product.id_produto}" ${unavailable ? 'disabled' : ''} aria-label="Adicionar ${escapeHtml(product.nome)} à sacola">${unavailable ? 'Esgotado' : '+'}</button>
         </div>
         <div class="product-info"><div><h3>${escapeHtml(product.nome)}</h3><p>${escapeHtml(product.material || 'Plástico retirado do oceano')}</p></div><strong>${formatPrice(product.preco)}</strong></div>
       </article>`;
     }).join('');
+    updateCarouselControls();
   }
 
   function escapeHtml(value) {
@@ -55,6 +79,13 @@
       button.disabled = false;
     }
   });
+
+  if (previousButton && nextButton) {
+    previousButton.addEventListener('click', () => scrollCollection(-1));
+    nextButton.addEventListener('click', () => scrollCollection(1));
+    grid.addEventListener('scroll', updateCarouselControls, { passive: true });
+    window.addEventListener('resize', updateCarouselControls);
+  }
 
   document.querySelector('#category-filter').addEventListener('change', (event) => {
     const category = event.target.value;
