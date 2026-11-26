@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f6f2">
+  <meta name="theme-color" content="#F8FAFC">
   <meta name="description" content="RecycleWear: moda feita exclusivamente com plástico reciclado retirado do oceano.">
   <title>RecycleWear — Vista um futuro melhor</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
   <script src="assets/js/api.js" defer></script>
   <script src="assets/js/catalog.js" defer></script>
@@ -40,27 +40,55 @@
         <p class="eco-overline">RECYCLEWEAR · MODA COM PROPÓSITO</p>
         <h1 id="eco-hero-title">Vista um futuro<br>mais <em>azul.</em></h1>
         <p>Peças feitas exclusivamente com plástico reciclado retirado do oceano. Um novo começo para materiais que merecem outra história.</p>
-        <a class="eco-button eco-button-light" href="#colecao">Descubra a coleção <span aria-hidden="true">↗</span></a>
-        <button class="eco-motion-toggle" type="button" data-motion-toggle hidden aria-pressed="false">Ativar parallax do fundo</button>
+        <div class="eco-hero-actions">
+          <a class="eco-button eco-button-light" href="#colecao">Descubra a coleção <span aria-hidden="true">↗</span></a>
+          <a class="eco-button eco-button-outline-light" href="#impacto">Nosso impacto <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="eco-hero-proof" aria-label="Compromisso ecológico com materiais reciclados">
+          <span aria-hidden="true">♻</span>
+          <span>Plástico retirado do oceano<br><strong>transformado em tecido</strong></span>
+        </div>
       </div>
       <span class="eco-hero-caption">DESIGN CONSCIENTE · FEITO PARA DURAR</span>
     </section>
 
     <section class="eco-values" aria-label="Compromisso RecycleWear" data-scroll-reveal>
-      <div><span class="eco-value-icon" aria-hidden="true">01</span><p><strong>Origem consciente</strong><span>Plástico retirado do oceano</span></p></div>
-      <div><span class="eco-value-icon" aria-hidden="true">02</span><p><strong>Nova matéria-prima</strong><span>Reciclada para virar tecido</span></p></div>
-      <div><span class="eco-value-icon" aria-hidden="true">03</span><p><strong>Estilo duradouro</strong><span>Essenciais para muitos caminhos</span></p></div>
+      <a class="eco-value-link" href="#eco-tech-origin"><span class="eco-value-icon" aria-hidden="true">01</span><p><strong>Origem consciente</strong><span>Plástico retirado do oceano</span></p></a>
+      <a class="eco-value-link" href="#eco-tech-fiber"><span class="eco-value-icon" aria-hidden="true">02</span><p><strong>Nova matéria-prima</strong><span>Reciclada para virar tecido</span></p></a>
+      <a class="eco-value-link" href="#eco-tech-fabric"><span class="eco-value-icon" aria-hidden="true">03</span><p><strong>Estilo duradouro</strong><span>Essenciais para muitos caminhos</span></p></a>
+    </section>
+
+    <section class="eco-tech" aria-labelledby="eco-tech-title">
+      <div class="eco-tech-heading">
+        <p class="eco-overline">Tecnologia dos tecidos</p>
+        <h2 id="eco-tech-title">Do resíduo ao tecido.</h2>
+      </div>
+      <div class="eco-tech-grid">
+        <article id="eco-tech-origin">
+          <span>01 · ORIGEM</span>
+          <h3>Uma nova matéria-prima</h3>
+          <p>O plástico reciclado retirado do oceano ganha uma nova possibilidade de uso como matéria-prima, em vez de permanecer como resíduo.</p>
+        </article>
+        <article id="eco-tech-fiber">
+          <span>02 · FIBRA</span>
+          <h3>Reciclagem têxtil</h3>
+          <p>Em processos de reciclagem, o plástico pode ser preparado e transformado em fibras sintéticas adequadas à produção de fios.</p>
+        </article>
+        <article id="eco-tech-fabric">
+          <span>03 · TECIDO</span>
+          <h3>Do fio à peça</h3>
+          <p>As fibras podem ser reunidas em fios e tecidas para confeccionar roupas. A composição e os cuidados variam conforme cada peça.</p>
+        </article>
+      </div>
     </section>
 
     <section class="eco-categories" id="categorias" aria-labelledby="categories-title">
       <div class="eco-section-title" data-scroll-reveal>
-        <div><p class="eco-overline">Encontre o seu essencial</p><h2 id="categories-title">Vista do seu jeito.</h2></div>
+        <div><p class="eco-overline">Peças organizadas por tipo</p><h2 id="categories-title">Explore as categorias.</h2></div>
           <a class="eco-inline-link" href="pages/colecao.html">Ver coleção <span aria-hidden="true">↗</span></a>
       </div>
-      <div class="eco-category-grid">
-        <a class="eco-category eco-category-women" href="#colecao" data-scroll-reveal><span>Feminino</span><b aria-hidden="true">↗</b></a>
-        <a class="eco-category eco-category-men" href="#colecao" data-scroll-reveal><span>Masculino</span><b aria-hidden="true">↗</b></a>
-        <a class="eco-category eco-category-everyday" href="#colecao" data-scroll-reveal><span>Para todos os dias</span><b aria-hidden="true">↗</b></a>
+      <div class="eco-category-grid" data-category-grid>
+        <p class="loading-message">Carregando categorias...</p>
       </div>
     </section>
 
@@ -72,6 +100,14 @@
       <div class="catalog-toolbar eco-catalog-toolbar" data-scroll-reveal>
         <span data-product-count>Carregando coleção...</span>
         <div class="eco-collection-tools">
+          <label class="eco-search">
+            <span class="sr-only">Buscar peças</span>
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+              <circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.8"></circle>
+              <path d="m16 16 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+            </svg>
+            <input id="product-search" type="search" placeholder="Buscar peça..." autocomplete="off">
+          </label>
           <label class="sr-only" for="category-filter">Filtrar por categoria</label>
           <select id="category-filter"><option value="">Todas as peças</option></select>
           <div class="eco-carousel-controls" data-collection-controls role="group" aria-label="Navegação da coleção" hidden>
@@ -119,6 +155,6 @@
     <div class="eco-footer-bottom"><span>© 2026 RecycleWear</span><span>Uma nova vida para o plástico do oceano.</span></div>
   </footer>
   <div class="toast" data-toast role="status" aria-live="polite"></div>
-  <script src="assets/js/scroll-parallax.js" ></script>
+  <script src="assets/js/scroll-parallax.js?v=always-on"></script>
 </body>
 </html>

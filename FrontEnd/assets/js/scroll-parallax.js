@@ -2,12 +2,8 @@
   const hero = document.querySelector('.eco-hero');
   if (!hero) return;
 
-  const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
-  let reduceMotion = motionPreference.matches;
   const heroPhoto = hero.querySelector('.eco-hero-photo');
-  const motionToggle = document.querySelector('[data-motion-toggle]');
-  let motionOverride = null;
-  const categoryCards = [...document.querySelectorAll('.eco-category')];
+  const categoryGrid = document.querySelector('.eco-category-grid');
   const productGrid = document.querySelector('.eco-product-grid');
   const impactPhoto = document.querySelector('.eco-impact-photo');
   let animationFrame = null;
@@ -19,12 +15,10 @@
 
   function updateParallax() {
     animationFrame = null;
-    if (reduceMotion) return;
-
     const heroOffset = window.scrollY * 0.3;
     heroPhoto.style.setProperty('--eco-hero-parallax-y', `${heroOffset}px`);
 
-    categoryCards.forEach((card) => {
+    document.querySelectorAll('.eco-category').forEach((card) => {
       const offset = (getProgress(card) - 0.5) * 36;
       card.style.setProperty('--eco-category-parallax-y', `${offset}px`);
     });
@@ -48,43 +42,13 @@
   }
 
   function scheduleParallax() {
-    if (!reduceMotion && animationFrame === null) animationFrame = window.requestAnimationFrame(updateParallax);
-  }
-
-  function updateMotionControl() {
-    if (!motionToggle) return;
-    motionToggle.hidden = !motionPreference.matches && motionOverride === null;
-    motionToggle.textContent = reduceMotion ? 'Ativar parallax do fundo' : 'Desativar parallax do fundo';
-    motionToggle.setAttribute('aria-pressed', String(!reduceMotion));
-    document.body.classList.toggle('motion-enabled', motionPreference.matches && !reduceMotion);
+    if (animationFrame === null) animationFrame = window.requestAnimationFrame(updateParallax);
   }
 
   window.addEventListener('scroll', scheduleParallax, { passive: true });
   window.addEventListener('resize', scheduleParallax);
   if (productGrid) productGrid.addEventListener('scroll', scheduleParallax, { passive: true });
-  updateMotionControl();
   scheduleParallax();
-
-  if (motionToggle) {
-    motionToggle.addEventListener('click', () => {
-      motionOverride = reduceMotion;
-      reduceMotion = !motionOverride;
-      updateMotionControl();
-      scheduleParallax();
-    });
-  }
-
-  function handleMotionPreferenceChange(event) {
-    if (motionOverride === null) reduceMotion = event.matches;
-    updateMotionControl();
-    scheduleParallax();
-  }
-
-  if (motionPreference.addEventListener) {
-    motionPreference.addEventListener('change', handleMotionPreferenceChange);
-  } else if (motionPreference.addListener) {
-    motionPreference.addListener(handleMotionPreferenceChange);
-  }
 
   let revealObserver = null;
   if ('IntersectionObserver' in window) {
@@ -102,9 +66,19 @@
     }
   }
 
+  if (categoryGrid && 'MutationObserver' in window) {
+    const categoryObserver = new MutationObserver(() => {
+      scheduleParallax();
+      if (revealObserver) {
+        categoryGrid.querySelectorAll('[data-scroll-reveal]:not(.is-visible)').forEach((element) => revealObserver.observe(element));
+      }
+    });
+    categoryObserver.observe(categoryGrid, { childList: true });
+  }
+
   if (productGrid && 'MutationObserver' in window) {
     const productObserver = new MutationObserver(() => {
-      if (!reduceMotion) scheduleParallax();
+      scheduleParallax();
       if (revealObserver) {
         productGrid.querySelectorAll('[data-product-reveal]:not(.is-visible)').forEach((element) => revealObserver.observe(element));
       }

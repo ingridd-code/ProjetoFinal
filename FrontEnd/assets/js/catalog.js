@@ -15,6 +15,9 @@
   const carouselControls = document.querySelector('[data-collection-controls]');
   const previousButton = document.querySelector('[data-collection-prev]');
   const nextButton = document.querySelector('[data-collection-next]');
+  const categoryGrid = document.querySelector('[data-category-grid]');
+  const categoryFilter = document.querySelector('#category-filter');
+  const searchInput = document.querySelector('#product-search');
   const isGridLayout = grid.dataset.catalogLayout === 'grid';
 
   function updateCarouselControls() {
@@ -39,7 +42,7 @@
     grid.scrollLeft = 0;
     grid.classList.toggle('is-carousel', list.length > 0 && !isGridLayout);
     if (!list.length) {
-      grid.innerHTML = '<p class="empty-state">Nenhuma peça encontrada nesta categoria.</p>';
+      grid.innerHTML = '<p class="empty-state">Nenhuma peça encontrada para esses filtros.</p>';
       updateCarouselControls();
       return;
     }
@@ -56,6 +59,28 @@
       </article>`;
     }).join('');
     updateCarouselControls();
+  }
+
+  function renderCategoryCards() {
+    if (!categoryGrid) return;
+    const categoryCounts = new Map();
+    products.forEach((product) => {
+      if (product.categoria) {
+        categoryCounts.set(product.categoria, (categoryCounts.get(product.categoria) || 0) + 1);
+      }
+    });
+    const categories = [...categoryCounts.entries()];
+    if (!categories.length) {
+      categoryGrid.innerHTML = '<p class="empty-state">Ainda não há categorias com peças cadastradas.</p>';
+      return;
+    }
+    categoryGrid.innerHTML = categories.map(([category, count]) => `
+      <a class="eco-category" href="#colecao" data-category="${escapeHtml(category)}" data-scroll-reveal>
+        <span>${escapeHtml(category)}</span>
+        <span class="eco-category-count">${count} ${count === 1 ? 'peça' : 'peças'}</span>
+        <b aria-hidden="true">↗</b>
+      </a>
+    `).join('');
   }
 
   grid.addEventListener('click', async (event) => {
@@ -79,24 +104,45 @@
     window.addEventListener('resize', updateCarouselControls);
   }
 
-  document.querySelector('#category-filter').addEventListener('change', (event) => {
-    const category = event.target.value;
-    renderProducts(category ? products.filter((product) => product.categoria === category) : products);
-  });
+  function applyFilters() {
+    const category = categoryFilter.value;
+    const query = searchInput.value.trim().toLocaleLowerCase('pt-BR');
+    const filteredProducts = products.filter((product) => {
+      const matchesCategory = !category || product.categoria === category;
+      const searchableText = [product.nome, product.categoria, product.material, product.descricao]
+        .filter(Boolean)
+        .join(' ')
+        .toLocaleLowerCase('pt-BR');
+      return matchesCategory && searchableText.includes(query);
+    });
+    renderProducts(filteredProducts);
+  }
+
+  categoryFilter.addEventListener('change', applyFilters);
+  searchInput.addEventListener('input', applyFilters);
+  if (categoryGrid) {
+    categoryGrid.addEventListener('click', (event) => {
+      const link = event.target.closest('[data-category]');
+      if (!link) return;
+      categoryFilter.value = link.dataset.category;
+      applyFilters();
+    });
+  }
 
   window.RecycleWear.request('/produtos').then((data) => {
     products = Array.isArray(data) ? data : [];
     const categories = [...new Set(products.map((product) => product.categoria).filter(Boolean))];
-    const filter = document.querySelector('#category-filter');
     categories.forEach((category) => {
       const option = document.createElement('option');
       option.value = category;
       option.textContent = category;
-      filter.append(option);
+      categoryFilter.append(option);
     });
+    renderCategoryCards();
     renderProducts(products);
   }).catch((error) => {
     document.querySelector('[data-product-count]').textContent = 'Coleção indisponível';
     grid.innerHTML = `<p class="empty-state">${escapeHtml(error.message)}<br><span>Inicie o servidor do BackEnd e atualize a página.</span></p>`;
+    if (categoryGrid) categoryGrid.innerHTML = '<p class="empty-state">Não foi possível carregar as categorias.</p>';
   });
 })();

@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f6f2">
+  <meta name="theme-color" content="#F8FAFC">
   <meta name="description" content="Explore todos os produtos da coleção RecycleWear.">
   <title>Todos os produtos — RecycleWear</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/styles.css">
   <script src="../assets/js/api.js" defer></script>
   <script src="../assets/js/catalog.js" defer></script>
@@ -39,12 +39,22 @@
       </div>
       <div class="catalog-toolbar eco-catalog-toolbar">
         <span data-product-count>Carregando produtos...</span>
-        <label>
-          <span class="sr-only">Filtrar por categoria</span>
+        <div class="eco-collection-tools">
+          <label class="eco-search">
+            <span class="sr-only">Buscar peças</span>
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+              <circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.8"></circle>
+              <path d="m16 16 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+            </svg>
+            <input id="product-search" type="search" placeholder="Buscar peça..." autocomplete="off">
+          </label>
+          <label>
+            <span class="sr-only">Filtrar por categoria</span>
           <select id="category-filter">
             <option value="">Todas as peças</option>
           </select>
-        </label>
+          </label>
+        </div>
       </div>
       <div class="product-grid eco-product-grid" data-product-grid data-catalog-layout="grid" aria-label="Todos os produtos" aria-live="polite">
         <p class="loading-message">Buscando produtos...</p>
