@@ -2,20 +2,11 @@
   const historyList = document.querySelector('[data-purchase-history]');
   if (!historyList) return;
 
+  const { escapeHtml, formatPrice } = window.RecycleWear;
   const user = window.RecycleWear.getUser();
   if (!user) {
     window.location.replace('login.html?redirect=historico');
     return;
-  }
-
-  function escapeHtml(value) {
-    return String(value || '').replace(/[&<>"']/g, (character) => ({
-      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-    })[character]);
-  }
-
-  function formatPrice(value) {
-    return Number(value).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   }
 
   function formatDate(value) {

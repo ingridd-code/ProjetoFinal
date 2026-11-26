@@ -2,6 +2,7 @@
   const grid = document.querySelector('[data-product-grid]');
   if (!grid) return;
 
+  const { escapeHtml, formatPrice } = window.RecycleWear;
   const productImages = [
     'photo-1521572163474-6864f9cf17ab',
     'photo-1551488831-00ddcb6c6bd3',
@@ -14,10 +15,7 @@
   const carouselControls = document.querySelector('[data-collection-controls]');
   const previousButton = document.querySelector('[data-collection-prev]');
   const nextButton = document.querySelector('[data-collection-next]');
-
-  function formatPrice(price) {
-    return Number(price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-  }
+  const isGridLayout = grid.dataset.catalogLayout === 'grid';
 
   function updateCarouselControls() {
     if (!carouselControls || !previousButton || !nextButton) return;
@@ -39,7 +37,7 @@
     const count = document.querySelector('[data-product-count]');
     count.textContent = `${list.length} ${list.length === 1 ? 'peça' : 'peças'} disponíveis`;
     grid.scrollLeft = 0;
-    grid.classList.toggle('is-carousel', list.length > 0);
+    grid.classList.toggle('is-carousel', list.length > 0 && !isGridLayout);
     if (!list.length) {
       grid.innerHTML = '<p class="empty-state">Nenhuma peça encontrada nesta categoria.</p>';
       updateCarouselControls();
@@ -58,12 +56,6 @@
       </article>`;
     }).join('');
     updateCarouselControls();
-  }
-
-  function escapeHtml(value) {
-    return String(value || '').replace(/[&<>"']/g, (character) => ({
-      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-    })[character]);
   }
 
   grid.addEventListener('click', async (event) => {

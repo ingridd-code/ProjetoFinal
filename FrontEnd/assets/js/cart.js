@@ -1,6 +1,7 @@
 (function () {
   const itemsContainer = document.querySelector('[data-cart-items]');
   if (!itemsContainer) return;
+  const { escapeHtml, formatPrice } = window.RecycleWear;
   const deliveryDateInput = document.querySelector('[data-delivery-date]');
   const deliveryLocationInput = document.querySelector('[data-delivery-location]');
   const historyLink = document.querySelector('[data-purchase-history-link]');
@@ -9,16 +10,6 @@
   const today = new Date();
   today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
   deliveryDateInput.min = today.toISOString().slice(0, 10);
-
-  function escapeHtml(value) {
-    return String(value || '').replace(/[&<>"']/g, (character) => ({
-      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-    })[character]);
-  }
-
-  function formatPrice(price) {
-    return Number(price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-  }
 
   function renderCart() {
     document.querySelector('[data-cart-total]').textContent = formatPrice(

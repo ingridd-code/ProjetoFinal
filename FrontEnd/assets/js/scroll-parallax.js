@@ -5,7 +5,8 @@
   const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
   let reduceMotion = motionPreference.matches;
   const heroPhoto = hero.querySelector('.eco-hero-photo');
-  const heroBackgroundSpeed = 0.3;
+  const motionToggle = document.querySelector('[data-motion-toggle]');
+  let motionOverride = null;
   const categoryCards = [...document.querySelectorAll('.eco-category')];
   const productGrid = document.querySelector('.eco-product-grid');
   const impactPhoto = document.querySelector('.eco-impact-photo');
@@ -20,7 +21,7 @@
     animationFrame = null;
     if (reduceMotion) return;
 
-    const heroOffset = window.scrollY * (1 - heroBackgroundSpeed);
+    const heroOffset = window.scrollY * 0.3;
     heroPhoto.style.setProperty('--eco-hero-parallax-y', `${heroOffset}px`);
 
     categoryCards.forEach((card) => {
@@ -50,13 +51,32 @@
     if (!reduceMotion && animationFrame === null) animationFrame = window.requestAnimationFrame(updateParallax);
   }
 
+  function updateMotionControl() {
+    if (!motionToggle) return;
+    motionToggle.hidden = !motionPreference.matches && motionOverride === null;
+    motionToggle.textContent = reduceMotion ? 'Ativar parallax do fundo' : 'Desativar parallax do fundo';
+    motionToggle.setAttribute('aria-pressed', String(!reduceMotion));
+    document.body.classList.toggle('motion-enabled', motionPreference.matches && !reduceMotion);
+  }
+
   window.addEventListener('scroll', scheduleParallax, { passive: true });
   window.addEventListener('resize', scheduleParallax);
   if (productGrid) productGrid.addEventListener('scroll', scheduleParallax, { passive: true });
+  updateMotionControl();
   scheduleParallax();
 
+  if (motionToggle) {
+    motionToggle.addEventListener('click', () => {
+      motionOverride = reduceMotion;
+      reduceMotion = !motionOverride;
+      updateMotionControl();
+      scheduleParallax();
+    });
+  }
+
   function handleMotionPreferenceChange(event) {
-    reduceMotion = event.matches;
+    if (motionOverride === null) reduceMotion = event.matches;
+    updateMotionControl();
     scheduleParallax();
   }
 

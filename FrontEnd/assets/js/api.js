@@ -1,7 +1,19 @@
 (function () {
-  const API_BASE = 'http://localhost:3000/api';
+  const API_BASE = window.location.port === '3000'
+    ? `${window.location.origin}/api`
+    : 'http://localhost:3000/api';
   const CART_KEY = 'recyclewear_cart';
   const USER_KEY = 'recyclewear_user';
+
+  function escapeHtml(value) {
+    return String(value || '').replace(/[&<>"']/g, (character) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    })[character]);
+  }
+
+  function formatPrice(price) {
+    return Number(price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  }
 
   function getUser() {
     try {
@@ -37,7 +49,7 @@
         headers
       });
     } catch (error) {
-      throw new Error('Não foi possível conectar à API. Verifique se o BackEnd está rodando na porta 3000.');
+      throw new Error('Não foi possível conectar à API. Verifique se o servidor foi iniciado com npm start.');
     }
     const data = await response.json().catch(() => ({}));
     if (!response.ok) throw new Error(data.erro || data.mensagem || 'Não foi possível concluir a solicitação.');
@@ -152,7 +164,7 @@
   }
 
   window.RecycleWear = {
-    request, getUser, getGuestCart, saveGuestCart, syncGuestCart, getCart,
+    escapeHtml, formatPrice, request, getUser, getGuestCart, saveGuestCart, syncGuestCart, getCart,
     addToCart, removeCartItem, updateCartItem, updateCartCount, updateHeader, showToast
   };
   document.addEventListener('DOMContentLoaded', updateHeader);

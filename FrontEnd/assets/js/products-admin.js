@@ -2,6 +2,7 @@
   const form = document.querySelector('[data-product-form]');
   if (!form) return;
 
+  const { escapeHtml, formatPrice } = window.RecycleWear;
   const list = document.querySelector('[data-admin-product-list]');
   const listMessage = document.querySelector('[data-list-message]');
   const formMessage = document.querySelector('[data-admin-message]');
@@ -18,16 +19,6 @@
   let editingProductId = null;
   let previewObjectUrl = null;
   let products = [];
-
-  function escapeHtml(value) {
-    return String(value || '').replace(/[&<>"']/g, (character) => ({
-      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-    })[character]);
-  }
-
-  function formatPrice(price) {
-    return Number(price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-  }
 
   function clearImagePreview() {
     if (previewObjectUrl) URL.revokeObjectURL(previewObjectUrl);
@@ -191,23 +182,15 @@
         formMessage.textContent = 'Produto atualizado com sucesso.';
       }
       await loadProducts();
-      if (editingProductId === null) {
-        form.reset();
-        form.elements.material.value = 'Plástico reciclado retirado do oceano';
-        clearImagePreview();
-        imageMessage.textContent = '';
-        await loadCategories();
-      } else {
-        editingProductId = null;
-        document.querySelector('[data-form-title]').textContent = 'Novo produto';
-        submitButton.innerHTML = 'Adicionar produto <span aria-hidden="true">↗</span>';
-        cancelEditButton.hidden = true;
-        form.reset();
-        form.elements.material.value = 'Plástico reciclado retirado do oceano';
-        clearImagePreview();
-        imageMessage.textContent = '';
-        await loadCategories();
-      }
+      editingProductId = null;
+      document.querySelector('[data-form-title]').textContent = 'Novo produto';
+      submitButton.innerHTML = 'Adicionar produto <span aria-hidden="true">↗</span>';
+      cancelEditButton.hidden = true;
+      form.reset();
+      form.elements.material.value = 'Plástico reciclado retirado do oceano';
+      clearImagePreview();
+      imageMessage.textContent = '';
+      await loadCategories();
     } catch (error) {
       formMessage.textContent = error.message;
     } finally {

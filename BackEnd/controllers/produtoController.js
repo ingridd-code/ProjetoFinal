@@ -1,11 +1,15 @@
 const produtoModel = require('../models/produtoModel');
 const productImages = require('../utils/productImages');
 
+function getPublicImageUrl(req, imageUrl) {
+    return imageUrl ? `${req.protocol}://${req.get('host')}${imageUrl}` : null;
+}
+
 function withPublicImageUrl(req, product) {
     if (!product || !product.imagem_url) return product;
     return {
         ...product,
-        imagem_url: `${req.protocol}://${req.get('host')}${product.imagem_url}`
+        imagem_url: getPublicImageUrl(req, product.imagem_url)
     };
 }
 
@@ -35,7 +39,7 @@ const produtoController = {
             const idProduto = await produtoModel.criar({ ...req.body, imagem_url: imagemUrl });
             res.status(201).json({
                 id: idProduto,
-                imagem_url: imagemUrl ? `${req.protocol}://${req.get('host')}${imagemUrl}` : null,
+                imagem_url: getPublicImageUrl(req, imagemUrl),
                 mensagem: 'Produto cadastrado com sucesso!'
             });
         } catch (err) {

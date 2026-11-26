@@ -4,11 +4,16 @@ Interface da loja RecycleWear, com páginas de catálogo, cadastro, login, sacol
 
 ## Executar
 
-1. Configure e inicie o BackEnd na porta `3000` (consulte `../BackEnd/README.md`).
-2. Sirva esta pasta com uma extensão de servidor estático, como Live Server no VS Code. Abra `index.html` pelo servidor local — não abra o arquivo diretamente pelo protocolo `file://`.
-3. Acesse as páginas pelo catálogo; cadastro, login, sacola e gerenciamento de produtos ficam em `pages/`.
+Na raiz do projeto, instale as dependências uma vez e inicie o site e a API juntos:
 
-O endereço da API está definido no início de `assets/js/api.js` como `http://localhost:3000/api`. Se a API usar outro endereço, ajuste essa constante.
+```powershell
+npm install
+npm start
+```
+
+Abra `http://localhost:3000`. O servidor usa o arquivo `BackEnd/.env` para conectar ao MySQL. Para criar um banco novo, execute `BackEnd/config/db.sql` no MySQL; para bancos existentes, aplique as migrações em `BackEnd/migrations`. Não abra `index.html` diretamente com `file://`, pois a API é servida pelo mesmo endereço local.
+
+As páginas de catálogo completo (`pages/colecao.html`), cadastro, login, sacola, histórico e gerenciamento de produtos ficam em `pages/`.
 
 ## Fluxos
 

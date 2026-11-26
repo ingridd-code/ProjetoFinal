@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f6f2">
+  <meta name="description" content="Explore todos os produtos da coleção RecycleWear.">
+  <title>Todos os produtos — RecycleWear</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <script src="../assets/js/api.js" defer></script>
+  <script src="../assets/js/catalog.js" defer></script>
+</head>
+<body class="eco-storefront">
+  <div class="eco-announcement">Moda feita com plástico reciclado retirado do oceano <span aria-hidden="true">✦</span> Conheça a RecycleWear</div>
+  <header class="eco-header">
+    <a class="eco-logo" href="../index.html" aria-label="RecycleWear, início">
+      <span class="eco-logo-mark" aria-hidden="true">rw</span>
+      <span>recyclewear</span>
+    </a>
+    <nav class="eco-nav" aria-label="Navegação principal">
+      <a href="../index.html">Início</a>
+      <a href="colecao.html" aria-current="page">Produtos</a>
+      <a href="../index.html#impacto">Nosso impacto</a>
+    </nav>
+    <div class="eco-actions">
+      <a data-account-link href="login.html">Entrar</a>
+      <a href="carrinho.html" aria-label="Abrir sacola">Sacola <span class="eco-cart-count" data-cart-count>0</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="eco-collection eco-full-catalog" aria-labelledby="catalog-title">
+      <div class="eco-section-title">
+        <p class="eco-overline">Plástico do oceano, transformado</p>
+        <h1 id="catalog-title">Todos os produtos.</h1>
+      </div>
+      <div class="catalog-toolbar eco-catalog-toolbar">
+        <span data-product-count>Carregando produtos...</span>
+        <label>
+          <span class="sr-only">Filtrar por categoria</span>
+          <select id="category-filter">
+            <option value="">Todas as peças</option>
+          </select>
+        </label>
+      </div>
+      <div class="product-grid eco-product-grid" data-product-grid data-catalog-layout="grid" aria-label="Todos os produtos" aria-live="polite">
+        <p class="loading-message">Buscando produtos...</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="eco-footer">
+    <div class="eco-footer-main">
+      <div class="eco-footer-brand">
+        <a class="eco-logo" href="../index.html"><span class="eco-logo-mark" aria-hidden="true">rw</span><span>recyclewear</span></a>
+        <p>Moda feita exclusivamente com plástico reciclado retirado do oceano.</p>
+      </div>
+      <div class="eco-footer-links">
+        <strong>Explore</strong>
+        <a href="../index.html">Início</a>
+        <a href="colecao.html">Todos os produtos</a>
+      </div>
+      <div class="eco-footer-links">
+        <strong>Conta</strong>
+        <a href="login.html">Entrar</a>
+        <a href="carrinho.html">Sacola</a>
+      </div>
+    </div>
+    <div class="eco-footer-bottom"><span>© 2026 RecycleWear</span><span>Uma nova vida para o plástico do oceano.</span></div>
+  </footer>
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
+</body>
+</html>
