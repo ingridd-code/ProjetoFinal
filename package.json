@@ -17,6 +17,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node BackEnd/server.js",
+    "seed:catalog": "node BackEnd/scripts/seedCatalog.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

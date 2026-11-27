@@ -5,6 +5,11 @@ function isPositiveInteger(value) {
     return Number.isInteger(Number(value)) && Number(value) > 0;
 }
 
+function isValidSize(value) {
+    return ['Único', 'PP', 'P', 'M', 'G', 'GG', 'XG', ...Array.from({ length: 13 }, (_, index) => String(index + 34))]
+        .includes(value);
+}
+
 const carrinhoController = {
     obter: async (req, res) => {
         if (!isPositiveInteger(req.params.id_usuario)) {
@@ -20,8 +25,8 @@ const carrinhoController = {
     },
 
     adicionarItem: async (req, res) => {
-        const { id_usuario, id_produto, quantidade } = req.body;
-        if (![id_usuario, id_produto, quantidade].every(isPositiveInteger)) {
+        const { id_usuario, id_produto, quantidade, tamanho = 'Único' } = req.body;
+        if (![id_usuario, id_produto, quantidade].every(isPositiveInteger) || !isValidSize(tamanho)) {
             return res.status(400).json({ erro: 'Informe usuário, produto e quantidade válidos.' });
         }
         try {
@@ -29,13 +34,15 @@ const carrinhoController = {
             if (!produto || !produto.ativo) return res.status(404).json({ erro: 'Produto não encontrado.' });
 
             const carrinho = await carrinhoModel.obterPorUsuario(Number(id_usuario));
-            const itemExistente = carrinho.itens.find((item) => Number(item.id_produto) === Number(id_produto));
-            const quantidadeFinal = Number(quantidade) + Number(itemExistente ? itemExistente.quantidade : 0);
+            const quantidadeExistente = carrinho.itens
+                .filter((item) => Number(item.id_produto) === Number(id_produto))
+                .reduce((total, item) => total + Number(item.quantidade), 0);
+            const quantidadeFinal = Number(quantidade) + quantidadeExistente;
             if (quantidadeFinal > Number(produto.estoque)) {
                 return res.status(400).json({ erro: `Estoque insuficiente para ${produto.nome}.` });
             }
 
-            await carrinhoModel.adicionarItem(Number(id_usuario), Number(id_produto), Number(quantidade));
+            await carrinhoModel.adicionarItem(Number(id_usuario), Number(id_produto), Number(quantidade), tamanho);
             res.status(201).json({ mensagem: 'Peça adicionada à sacola.' });
         } catch (error) {
             console.error('Falha ao adicionar item ao carrinho.', error);

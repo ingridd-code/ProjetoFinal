@@ -17,13 +17,16 @@ function isValidDeliveryDate(value) {
 
 const compraController = {
     checkout: async (req, res) => {
-        const { id_usuario, data_entrega, local_entrega } = req.body;
+        const { id_usuario, data_entrega, local_entrega, metodo_pagamento } = req.body;
         let { itens } = req.body;
         let idCarrinhoAtivo = null;
         const enderecoEntrega = typeof local_entrega === 'string' ? local_entrega.trim() : '';
 
         if (!id_usuario) {
             return res.status(400).json({ erro: 'Informe o id_usuario.' });
+        }
+        if (!['credito', 'debito', 'pix'].includes(metodo_pagamento)) {
+            return res.status(400).json({ erro: 'Escolha uma forma de pagamento válida.' });
         }
         if (!isValidDeliveryDate(data_entrega) || data_entrega < getLocalDate()) {
             return res.status(400).json({ erro: 'Informe uma data de entrega válida a partir de hoje.' });
@@ -54,6 +57,7 @@ const compraController = {
 
             let valorTotal = 0;
             const itensValidados = [];
+            const quantidadePorProduto = new Map();
 
             // Validação de Estoque e Cálculo de Subtotais
             for (const item of itens) {
@@ -63,7 +67,9 @@ const compraController = {
                     throw new Error(`Produto ID ${item.id_produto} não encontrado.`);
                 }
 
-                if (produto.estoque < item.quantidade) {
+                const quantidadeAcumulada = (quantidadePorProduto.get(Number(item.id_produto)) || 0) + Number(item.quantidade);
+                quantidadePorProduto.set(Number(item.id_produto), quantidadeAcumulada);
+                if (produto.estoque < quantidadeAcumulada) {
                     throw new Error(`Estoque insuficiente para: ${produto.nome}. Disponível: ${produto.estoque}`);
                 }
 
@@ -72,6 +78,7 @@ const compraController = {
 
                 itensValidados.push({
                     id_produto: produto.id_produto,
+                    tamanho: item.tamanho || 'Único',
                     quantidade: item.quantidade,
                     preco_unitario: produto.preco
                 });
@@ -79,20 +86,15 @@ const compraController = {
 
             // Registrar Compra
             const idCompra = await compraModel.criarCompra(
-                id_usuario, valorTotal, data_entrega, enderecoEntrega, connection
+                id_usuario, valorTotal, data_entrega, enderecoEntrega, metodo_pagamento, connection
             );
 
             // Inserir Itens e Atualizar Estoque
             for (const item of itensValidados) {
                 await compraModel.inserirItemCompra(
-                    idCompra, item.id_produto, item.quantidade, item.preco_unitario, connection
+                    idCompra, item.id_produto, item.tamanho, item.quantidade, item.preco_unitario, connection
                 );
-                await produtoModel.atualizarEstoque(item.id_produto, item.quantidade, connection);
             }
-
-            // Emitir Nota Fiscal
-            const numeroNF = `NF-${Date.now()}`;
-            await compraModel.gerarNotaFiscal(idCompra, numeroNF, valorTotal, connection);
 
             // Se a compra veio do carrinho ativo, marca o carrinho como finalizado
             if (idCarrinhoAtivo) {
@@ -106,9 +108,9 @@ const compraController = {
             transactionStarted = false;
 
             res.status(201).json({
-                mensagem: 'Compra finalizada com sucesso!',
+                mensagem: 'Pedido registrado. A cobrança ainda não foi processada.',
                 id_compra: idCompra,
-                nota_fiscal: numeroNF,
+                metodo_pagamento,
                 total: valorTotal,
                 data_entrega,
                 local_entrega: enderecoEntrega

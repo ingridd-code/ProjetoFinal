@@ -34,6 +34,25 @@
           <label for="delivery-location">Endereço de entrega</label>
           <textarea id="delivery-location" data-delivery-location rows="3" maxlength="255" autocomplete="street-address" placeholder="Rua, número, bairro, cidade e CEP" required></textarea>
         </div>
+        <fieldset class="payment-methods">
+          <legend>Forma de pagamento</legend>
+          <label class="payment-method-option">
+            <input type="radio" name="metodo-pagamento" value="credito" required>
+            <span class="payment-method-icon" aria-hidden="true">▰</span>
+            <span><strong>Cartão de crédito</strong><small>Disponível após integração de pagamento</small></span>
+          </label>
+          <label class="payment-method-option">
+            <input type="radio" name="metodo-pagamento" value="debito">
+            <span class="payment-method-icon" aria-hidden="true">▣</span>
+            <span><strong>Cartão de débito</strong><small>Disponível após integração de pagamento</small></span>
+          </label>
+          <label class="payment-method-option">
+            <input type="radio" name="metodo-pagamento" value="pix" checked>
+            <span class="payment-method-icon payment-pix" aria-hidden="true">◆</span>
+            <span><strong>Pix</strong><small>Chave ou QR Code após integração</small></span>
+          </label>
+        </fieldset>
+        <p class="payment-demo-note">Ambiente demonstrativo: a forma é registrada no pedido, mas nenhuma cobrança é realizada. A integração com um provedor de pagamentos ainda precisa ser configurada.</p>
         <p class="summary-note">Informe a data desejada e o endereço para receber o pedido.</p>
         <button class="button button-dark button-full" data-checkout type="button">Finalizar compra <span aria-hidden="true">↗</span></button>
         <p class="checkout-message" data-checkout-message role="status"></p>

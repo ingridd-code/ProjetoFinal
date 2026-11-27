@@ -1,18 +1,18 @@
 const db = require('../config/database');
 
 const compraModel = {
-    criarCompra: async (idUsuario, valorTotal, dataEntrega, localEntrega, connection) => {
+    criarCompra: async (idUsuario, valorTotal, dataEntrega, localEntrega, metodoPagamento, connection) => {
         const [result] = await connection.query(
-            'INSERT INTO compra (id_usuario, valor_total, status, data_entrega, local_entrega) VALUES (?, ?, "paga", ?, ?)',
-            [idUsuario, valorTotal, dataEntrega, localEntrega]
+            'INSERT INTO compra (id_usuario, valor_total, status, data_entrega, local_entrega, metodo_pagamento) VALUES (?, ?, "pendente", ?, ?, ?)',
+            [idUsuario, valorTotal, dataEntrega, localEntrega, metodoPagamento]
         );
         return result.insertId;
     },
 
-    inserirItemCompra: async (idCompra, idProduto, quantidade, precoUnitario, connection) => {
+    inserirItemCompra: async (idCompra, idProduto, tamanho, quantidade, precoUnitario, connection) => {
         await connection.query(
-            'INSERT INTO item_compra (id_compra, id_produto, quantidade, preco_unitario) VALUES (?, ?, ?, ?)',
-            [idCompra, idProduto, quantidade, precoUnitario]
+            'INSERT INTO item_compra (id_compra, id_produto, tamanho, quantidade, preco_unitario) VALUES (?, ?, ?, ?, ?)',
+            [idCompra, idProduto, tamanho, quantidade, precoUnitario]
         );
     },
 
@@ -37,7 +37,7 @@ const compraModel = {
 
         const ids = compras.map((compra) => compra.id_compra);
         const [itens] = await db.query(
-            `SELECT ic.id_compra, ic.id_produto, ic.quantidade, ic.preco_unitario, p.nome AS produto_nome
+            `SELECT ic.id_compra, ic.id_produto, ic.tamanho, ic.quantidade, ic.preco_unitario, p.nome AS produto_nome
              FROM item_compra ic
              JOIN produto p ON ic.id_produto = p.id_produto
              WHERE ic.id_compra IN (?)

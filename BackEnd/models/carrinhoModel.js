@@ -19,7 +19,7 @@ const carrinhoModel = {
 
     listarItens: async (idCarrinho) => {
         const [itens] = await db.query(
-            `SELECT ic.id_item, ic.id_produto, ic.quantidade, p.nome, p.preco,
+            `SELECT ic.id_item, ic.id_produto, ic.tamanho, ic.quantidade, p.nome, p.preco,
                     p.estoque, p.material, p.imagem_url,
                     (p.preco * ic.quantidade) AS subtotal
              FROM item_carrinho ic
@@ -37,13 +37,13 @@ const carrinhoModel = {
         return { id_carrinho: carrinho.id_carrinho, itens };
     },
 
-    adicionarItem: async (idUsuario, idProduto, quantidade) => {
+    adicionarItem: async (idUsuario, idProduto, quantidade, tamanho = 'Único') => {
         const carrinho = await carrinhoModel.obterOuCriarCarrinhoAtivo(idUsuario);
         await db.query(
-            `INSERT INTO item_carrinho (id_carrinho, id_produto, quantidade)
-             VALUES (?, ?, ?)
+            `INSERT INTO item_carrinho (id_carrinho, id_produto, tamanho, quantidade)
+             VALUES (?, ?, ?, ?)
              ON DUPLICATE KEY UPDATE quantidade = quantidade + VALUES(quantidade)`,
-            [carrinho.id_carrinho, idProduto, quantidade]
+            [carrinho.id_carrinho, idProduto, tamanho, quantidade]
         );
         return carrinho.id_carrinho;
     },

@@ -37,6 +37,13 @@
         <p class="eco-overline">Plástico do oceano, transformado</p>
         <h1 id="catalog-title">Todos os produtos.</h1>
       </div>
+      <div class="catalog-category-filters" data-category-filters role="group" aria-label="Filtrar produtos por categoria">
+        <button type="button" data-category-filter="" aria-pressed="true">Todos</button>
+        <button type="button" data-category-filter="Tênis" aria-pressed="false">Tênis</button>
+        <button type="button" data-category-filter="Camisetas" aria-pressed="false">Camisetas</button>
+        <button type="button" data-category-filter="Jaquetas" aria-pressed="false">Jaquetas</button>
+        <button type="button" data-category-filter="Acessórios" aria-pressed="false">Acessórios</button>
+      </div>
       <div class="catalog-toolbar eco-catalog-toolbar">
         <span data-product-count>Carregando produtos...</span>
         <div class="eco-collection-tools">
@@ -82,5 +89,17 @@
     <div class="eco-footer-bottom"><span>© 2026 RecycleWear</span><span>Uma nova vida para o plástico do oceano.</span></div>
   </footer>
   <div class="toast" data-toast role="status" aria-live="polite"></div>
+  <dialog class="eco-quick-buy" data-quick-buy aria-labelledby="quick-buy-title">
+    <form method="dialog" class="eco-quick-buy-top"><button class="eco-dialog-close" aria-label="Fechar compra rápida">×</button></form>
+    <p class="eco-overline">Uma escolha consciente</p>
+    <h2 id="quick-buy-title">Compra rápida</h2>
+    <p class="eco-quick-buy-product" data-quick-buy-product></p>
+    <fieldset class="eco-size-options">
+      <legend>Escolha o tamanho</legend>
+      <div data-size-options></div>
+    </fieldset>
+    <p class="eco-size-error" data-size-error role="status"></p>
+    <button class="eco-button eco-quick-buy-submit" type="button" data-confirm-quick-buy>Adicionar à sacola</button>
+  </dialog>
 </body>
 </html>

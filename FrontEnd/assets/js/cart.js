@@ -4,6 +4,7 @@
   const { escapeHtml, formatPrice } = window.RecycleWear;
   const deliveryDateInput = document.querySelector('[data-delivery-date]');
   const deliveryLocationInput = document.querySelector('[data-delivery-location]');
+  const paymentMethodInputs = document.querySelectorAll('[name="metodo-pagamento"]');
   const historyLink = document.querySelector('[data-purchase-history-link]');
   let cartItems = [];
 
@@ -22,7 +23,7 @@
     itemsContainer.innerHTML = cartItems.map((item, index) => `
       <article class="cart-item">
         <div class="cart-item-art"><span>rw</span></div>
-        <div class="cart-item-info"><h2>${escapeHtml(item.nome)}</h2><p>${escapeHtml(item.material || 'Plástico retirado do oceano')}</p><strong>${formatPrice(item.preco)}</strong></div>
+        <div class="cart-item-info"><h2>${escapeHtml(item.nome)}</h2><p>${escapeHtml(item.material || 'Plástico retirado do oceano')}</p><p>Tamanho: ${escapeHtml(item.tamanho || 'Único')}</p><strong>${formatPrice(item.preco)}</strong></div>
         <div class="cart-item-actions">
           <label class="sr-only" for="quantity-${index}">Quantidade de ${escapeHtml(item.nome)}</label>
           <input id="quantity-${index}" type="number" min="1" max="${Number(item.estoque) || 99}" value="${Number(item.quantidade)}" data-quantity="${index}">
@@ -100,6 +101,12 @@
       deliveryLocationInput.focus();
       return;
     }
+    const metodoPagamento = document.querySelector('[name="metodo-pagamento"]:checked')?.value;
+    if (!metodoPagamento) {
+      message.textContent = 'Escolha uma forma de pagamento para continuar.';
+      paymentMethodInputs[0]?.focus();
+      return;
+    }
     button.disabled = true;
     try {
       const result = await window.RecycleWear.request('/compras/checkout', {
@@ -107,10 +114,11 @@
         body: JSON.stringify({
           id_usuario: user.id,
           data_entrega: dataEntrega,
-          local_entrega: localEntrega
+          local_entrega: localEntrega,
+          metodo_pagamento: metodoPagamento
         })
       });
-      message.textContent = `${result.mensagem} Pedido #${result.id_compra} · Nota fiscal ${result.nota_fiscal}.`;
+      message.textContent = `${result.mensagem} Pedido #${result.id_compra}. Pagamento pendente — ${result.metodo_pagamento}.`;
       historyLink.href = `historico.html?compra=${encodeURIComponent(result.id_compra)}`;
       historyLink.hidden = false;
       await loadCart();

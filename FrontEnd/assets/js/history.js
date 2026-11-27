@@ -16,6 +16,14 @@
     return match ? `${match[3]}/${match[2]}/${match[1]}` : 'Não informada';
   }
 
+  function formatPaymentMethod(value) {
+    return ({
+      credito: 'Cartão de crédito',
+      debito: 'Cartão de débito',
+      pix: 'Pix'
+    })[value] || 'Não informada';
+  }
+
   function renderPurchases(purchases) {
     if (!purchases.length) {
       historyList.innerHTML = '<div class="empty-cart"><span>↗</span><h2>Você ainda não fez compras.</h2><p>Quando finalizar um pedido, ele aparecerá aqui com sua nota fiscal.</p><a class="button button-dark" href="../index.html#colecao">Explorar coleção</a></div>';
@@ -39,6 +47,7 @@
           <div class="purchase-delivery-details">
             <p><strong>Entrega prevista</strong><span>${formatDate(purchase.data_entrega)}</span></p>
             <p><strong>Endereço</strong><span>${escapeHtml(purchase.local_entrega || 'Não informado')}</span></p>
+            <p><strong>Forma de pagamento</strong><span>${formatPaymentMethod(purchase.metodo_pagamento)}</span></p>
           </div>
           <section class="purchase-invoice" aria-label="Nota fiscal">
             <div class="purchase-invoice-heading">
@@ -51,7 +60,7 @@
             <div class="invoice-items">
               ${items.length ? items.map((item) => `
                 <div class="invoice-item">
-                  <span>${escapeHtml(item.produto_nome)} × ${Number(item.quantidade)}</span>
+                  <span>${escapeHtml(item.produto_nome)} · tam. ${escapeHtml(item.tamanho || 'Único')} × ${Number(item.quantidade)}</span>
                   <span>${formatPrice(Number(item.preco_unitario) * Number(item.quantidade))}</span>
                 </div>`).join('') : '<p class="invoice-empty">Itens indisponíveis.</p>'}
             </div>

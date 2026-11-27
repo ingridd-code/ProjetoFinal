@@ -58,6 +58,27 @@
       <a class="eco-value-link" href="#eco-tech-fabric"><span class="eco-value-icon" aria-hidden="true">03</span><p><strong>Estilo duradouro</strong><span>Essenciais para muitos caminhos</span></p></a>
     </section>
 
+    <section class="eco-proof" aria-labelledby="eco-proof-title">
+      <div class="eco-proof-heading">
+        <p class="eco-overline">Impacto em movimento</p>
+        <h2 id="eco-proof-title">Cada escolha conta.</h2>
+      </div>
+      <div class="eco-metrics" aria-label="Indicadores demonstrativos de impacto">
+        <article><strong>+15.000</strong><span>garrafas retiradas do oceano</span></article>
+        <article><strong>3,8 t</strong><span>de plástico reciclado</span></article>
+        <article><strong>100%</strong><span>rastreável</span></article>
+      </div>
+      <div class="eco-certifications">
+        <span class="eco-certification-label">Referências de sustentabilidade</span>
+        <ul aria-label="Padrões de sustentabilidade a verificar">
+          <li>Global Recycled Standard</li>
+          <li>Ocean Bound Plastic</li>
+          <li>B Corp</li>
+        </ul>
+      </div>
+      <p class="eco-demo-note">Indicadores, depoimentos e referências acima são demonstrativos e devem ser validados antes da publicação como dados ou certificações oficiais.</p>
+    </section>
+
     <section class="eco-tech" aria-labelledby="eco-tech-title">
       <div class="eco-tech-heading">
         <p class="eco-overline">Tecnologia dos tecidos</p>
@@ -97,6 +118,13 @@
         <div><p class="eco-overline">Plástico do oceano, transformado</p><h2 id="collection-title">A coleção RecycleWear.</h2></div>
         <p class="eco-section-description">Cada peça começa com uma escolha: dar uma nova vida ao plástico retirado do oceano.</p>
       </div>
+      <div class="catalog-category-filters" data-category-filters role="group" aria-label="Filtrar produtos por categoria">
+        <button type="button" data-category-filter="" aria-pressed="true">Todos</button>
+        <button type="button" data-category-filter="Tênis" aria-pressed="false">Tênis</button>
+        <button type="button" data-category-filter="Camisetas" aria-pressed="false">Camisetas</button>
+        <button type="button" data-category-filter="Jaquetas" aria-pressed="false">Jaquetas</button>
+        <button type="button" data-category-filter="Acessórios" aria-pressed="false">Acessórios</button>
+      </div>
       <div class="catalog-toolbar eco-catalog-toolbar" data-scroll-reveal>
         <span data-product-count>Carregando coleção...</span>
         <div class="eco-collection-tools">
@@ -116,6 +144,7 @@
           </div>
         </div>
       </div>
+      <p class="eco-product-demo-note">Avaliações e equivalências exibidas são demonstrativas; consulte a composição e os dados confirmados de cada produto antes da publicação.</p>
       <div id="eco-product-carousel" class="product-grid eco-product-grid" data-product-grid aria-label="Coleção de produtos" tabindex="0" aria-live="polite" data-scroll-reveal>
         <p class="loading-message">Buscando peças feitas para durar...</p>
       </div>
@@ -129,6 +158,46 @@
         <p>A RecycleWear transforma exclusivamente plástico reciclado retirado do oceano em roupas. Escolhemos materiais com propósito e criamos peças para acompanhar você por muito tempo.</p>
         <a class="eco-inline-link" href="#colecao">Conheça as peças <span aria-hidden="true">↗</span></a>
       </div>
+    </section>
+
+    <section class="eco-testimonials" aria-labelledby="testimonials-title">
+      <div class="eco-section-title">
+        <div><p class="eco-overline">Quem veste também transforma</p><h2 id="testimonials-title">Histórias que inspiram.</h2></div>
+      </div>
+      <p class="eco-demo-note">Depoimentos demonstrativos — substitua por avaliações reais e autorizadas de clientes.</p>
+      <div class="eco-testimonial-grid">
+        <article class="eco-testimonial-card">
+          <div class="eco-stars" aria-label="5 de 5 estrelas">★★★★★</div>
+          <blockquote>“Muito confortável no dia a dia. A escolha de um material reciclado deixa a experiência ainda melhor.”</blockquote>
+          <p><strong>Marina R.</strong><span>Conforto · avaliação demonstrativa</span></p>
+        </article>
+        <article class="eco-testimonial-card">
+          <div class="eco-stars" aria-label="5 de 5 estrelas">★★★★★</div>
+          <blockquote>“Gostei do acabamento e da sensação de ter uma peça versátil, feita para acompanhar várias ocasiões.”</blockquote>
+          <p><strong>Lucas M.</strong><span>Durabilidade · avaliação demonstrativa</span></p>
+        </article>
+        <article class="eco-testimonial-card">
+          <div class="eco-stars" aria-label="5 de 5 estrelas">★★★★★</div>
+          <blockquote>“Moda com propósito, sem abrir mão do estilo. É bom saber que minha escolha pode fazer diferença.”</blockquote>
+          <p><strong>Bianca A.</strong><span>Propósito · avaliação demonstrativa</span></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="eco-newsletter" aria-labelledby="newsletter-title">
+      <div class="eco-newsletter-copy">
+        <p class="eco-overline">Novidades com propósito</p>
+        <h2 id="newsletter-title">Junte-se ao movimento azul.</h2>
+        <p>Inscreva-se e receba 10% OFF na sua primeira compra consciente.</p>
+      </div>
+      <form class="eco-newsletter-form" data-newsletter-form>
+        <label class="sr-only" for="newsletter-email">Seu e-mail</label>
+        <input id="newsletter-email" name="email" type="email" placeholder="Seu melhor e-mail" autocomplete="email" maxlength="150" required>
+        <label class="eco-newsletter-consent"><input name="consentimento" type="checkbox" required><span>Concordo em receber novidades e li a <a href="pages/ajuda.html#privacidade">Política de Privacidade</a>.</span></label>
+        <button class="eco-button eco-newsletter-submit" type="submit">Quero me inscrever <span aria-hidden="true">↗</span></button>
+        <p class="eco-newsletter-message" data-newsletter-message role="status" aria-live="polite"></p>
+        <p class="eco-newsletter-note">Protótipo: a inscrição é registrada no site; o envio do cupom e a automação de e-mails precisam ser configurados.</p>
+      </form>
     </section>
   </main>
 
@@ -151,10 +220,43 @@
         <a href="pages/cadastro.html">Criar conta</a>
         <a href="pages/carrinho.html">Sacola</a>
       </div>
+      <div class="eco-footer-links">
+        <strong>Ajuda &amp; Institucional</strong>
+        <a href="pages/ajuda.html#trocas">Política de Trocas e Devoluções</a>
+        <a href="pages/ajuda.html#tamanhos">Guia de Tamanhos</a>
+        <a href="pages/ajuda.html#faq">Perguntas Frequentes (FAQ)</a>
+        <a href="pages/ajuda.html#privacidade">Política de Privacidade (LGPD)</a>
+      </div>
+      <div class="eco-footer-social">
+        <strong>Encontre a RecycleWear</strong>
+        <div class="eco-social-icons" aria-label="Redes sociais">
+          <span role="img" aria-label="Instagram" title="Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.8" r="1"></circle></svg>
+          </span>
+          <span role="img" aria-label="TikTok" title="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v11.2a4.2 4.2 0 1 1-3.2-4.1"></path><path d="M14 3c.4 3 2.2 4.8 5 5.2"></path></svg></span>
+          <span role="img" class="eco-linkedin-icon" aria-label="LinkedIn" title="LinkedIn">in</span>
+        </div>
+        <strong class="eco-payment-heading">Pagamentos</strong>
+        <div class="eco-payment-icons" aria-label="Métodos de pagamento aceitos">
+          <span title="Pix">Pix</span><span title="Visa">VISA</span><span title="Mastercard">●●</span><span title="Elo">elo</span>
+        </div>
+      </div>
     </div>
     <div class="eco-footer-bottom"><span>© 2026 RecycleWear</span><span>Uma nova vida para o plástico do oceano.</span></div>
   </footer>
   <div class="toast" data-toast role="status" aria-live="polite"></div>
+  <dialog class="eco-quick-buy" data-quick-buy aria-labelledby="quick-buy-title">
+    <form method="dialog" class="eco-quick-buy-top"><button class="eco-dialog-close" aria-label="Fechar compra rápida">×</button></form>
+    <p class="eco-overline">Uma escolha consciente</p>
+    <h2 id="quick-buy-title">Compra rápida</h2>
+    <p class="eco-quick-buy-product" data-quick-buy-product></p>
+    <fieldset class="eco-size-options">
+      <legend>Escolha o tamanho</legend>
+      <div data-size-options></div>
+    </fieldset>
+    <p class="eco-size-error" data-size-error role="status"></p>
+    <button class="eco-button eco-quick-buy-submit" type="button" data-confirm-quick-buy>Adicionar à sacola</button>
+  </dialog>
   <script src="assets/js/scroll-parallax.js?v=always-on"></script>
 </body>
 </html>

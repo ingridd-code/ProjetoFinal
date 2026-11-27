@@ -57,10 +57,11 @@ CREATE TABLE item_carrinho (
     id_item INT PRIMARY KEY AUTO_INCREMENT,
     id_carrinho INT NOT NULL,
     id_produto INT NOT NULL,
+    tamanho VARCHAR(20) NOT NULL DEFAULT 'Único',
     quantidade INT NOT NULL DEFAULT 1,
 
     CONSTRAINT uq_item_carrinho
-        UNIQUE (id_carrinho, id_produto),
+        UNIQUE (id_carrinho, id_produto, tamanho),
 
     CONSTRAINT chk_item_quantidade CHECK (quantidade > 0),
 
@@ -81,6 +82,7 @@ CREATE TABLE compra (
     data_compra DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     data_entrega DATE,
     local_entrega VARCHAR(255),
+    metodo_pagamento ENUM('credito', 'debito', 'pix') NOT NULL DEFAULT 'pix',
     status ENUM('pendente', 'paga', 'enviada',
                 'entregue', 'cancelada')
         NOT NULL DEFAULT 'pendente',
@@ -98,11 +100,12 @@ CREATE TABLE item_compra (
     id_item_compra INT PRIMARY KEY AUTO_INCREMENT,
     id_compra INT NOT NULL,
     id_produto INT NOT NULL,
+    tamanho VARCHAR(20) NOT NULL DEFAULT 'Único',
     quantidade INT NOT NULL,
     preco_unitario DECIMAL(10,2) NOT NULL,
 
     CONSTRAINT uq_item_compra
-        UNIQUE (id_compra, id_produto),
+        UNIQUE (id_compra, id_produto, tamanho),
 
     CONSTRAINT chk_compra_quantidade CHECK (quantidade > 0),
     CONSTRAINT chk_compra_preco CHECK (preco_unitario >= 0),
@@ -116,7 +119,14 @@ CREATE TABLE item_compra (
         REFERENCES produto(id_produto)
 );
 
--- 8. NOTAS FISCAIS
+-- 8. INSCRICOES DA NEWSLETTER
+CREATE TABLE newsletter_inscricao (
+    id_inscricao INT PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    consentimento_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 9. NOTAS FISCAIS
 CREATE TABLE nota_fiscal (
     id_nota INT PRIMARY KEY AUTO_INCREMENT,
     id_compra INT NOT NULL UNIQUE,

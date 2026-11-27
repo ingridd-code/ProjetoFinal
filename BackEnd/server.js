@@ -14,6 +14,7 @@ app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/produtos', require('./routes/produtoRoutes'));
 app.use('/api/compras', require('./routes/compraRoutes'));
 app.use('/api/carrinho', require('./routes/carrinhoRoutes'));
+app.use('/api/newsletter', require('./routes/newsletterRoutes'));
 app.get('/api/health', async (req, res) => {
     try {
         await require('./config/database').query('SELECT 1');

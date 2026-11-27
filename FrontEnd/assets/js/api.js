@@ -61,7 +61,12 @@
     for (const item of cart) {
       await request('/carrinho/item', {
         method: 'POST',
-        body: JSON.stringify({ id_usuario: user.id, id_produto: item.id_produto, quantidade: item.quantidade })
+        body: JSON.stringify({
+          id_usuario: user.id,
+          id_produto: item.id_produto,
+          quantidade: item.quantidade,
+          tamanho: item.tamanho || 'Único'
+        })
       });
     }
     saveGuestCart([]);
@@ -74,27 +79,36 @@
       return {
         itens: getGuestCart().map((item) => {
           const product = products.find((entry) => Number(entry.id_produto) === Number(item.id_produto));
-          return product ? { ...product, id_produto: product.id_produto, quantidade: item.quantidade, subtotal: Number(product.preco) * item.quantidade } : null;
+          return product ? {
+            ...product,
+            id_produto: product.id_produto,
+            quantidade: item.quantidade,
+            tamanho: item.tamanho || 'Único',
+            subtotal: Number(product.preco) * item.quantidade
+          } : null;
         }).filter(Boolean)
       };
     }
     return request(`/carrinho/${encodeURIComponent(user.id)}`);
   }
 
-  async function addToCart(productId, quantity) {
+  async function addToCart(productId, quantity, size) {
+    const selectedSize = size || 'Único';
     const user = getUser();
     if (user) {
       await request('/carrinho/item', {
         method: 'POST',
-        body: JSON.stringify({ id_usuario: user.id, id_produto: productId, quantidade: quantity })
+        body: JSON.stringify({ id_usuario: user.id, id_produto: productId, quantidade: quantity, tamanho: selectedSize })
       });
       updateCartCount();
       return;
     }
     const cart = getGuestCart();
-    const existing = cart.find((item) => Number(item.id_produto) === Number(productId));
+    const existing = cart.find((item) =>
+      Number(item.id_produto) === Number(productId) && (item.tamanho || 'Único') === selectedSize
+    );
     if (existing) existing.quantidade += quantity;
-    else cart.push({ id_produto: productId, quantidade: quantity });
+    else cart.push({ id_produto: productId, quantidade: quantity, tamanho: selectedSize });
     saveGuestCart(cart);
   }
 

@@ -1,5 +1,6 @@
 const produtoModel = require('../models/produtoModel');
 const productImages = require('../utils/productImages');
+const catalog = require('../data/product-catalog.json');
 
 function getPublicImageUrl(req, imageUrl) {
     return imageUrl ? `${req.protocol}://${req.get('host')}${imageUrl}` : null;
@@ -25,8 +26,29 @@ async function removeImageAfterError(imageUrl) {
 const produtoController = {
     listar: async (req, res) => {
         try {
-            const produtos = await produtoModel.listarTodosAtivos();
-            res.json(produtos.map((produto) => withPublicImageUrl(req, produto)));
+            const produtosAtivos = await produtoModel.listarTodosAtivos();
+            const inventoryById = new Map(
+                produtosAtivos.map((product) => [Number(product.id_produto), product])
+            );
+            const produtos = catalog.map((product) => {
+                const inventory = inventoryById.get(product.id);
+                if (!inventory) return null;
+                return {
+                    ...inventory,
+                    ...product,
+                    id_produto: product.id,
+                    id_categoria: inventory.id_categoria,
+                    nome: product.name,
+                    categoria: product.category,
+                    preco: product.price,
+                    estoque: Number(inventory.estoque),
+                    descricao: product.impactText,
+                    material: inventory.material,
+                    imagem_url: product.image,
+                    ativo: Boolean(inventory.ativo)
+                };
+            }).filter(Boolean);
+            res.json(produtos);
         } catch (err) {
             res.status(500).json({ erro: err.message });
         }
